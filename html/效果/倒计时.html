@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                倒计时制作
+            </title>
+            <style>
+                .otime span{display:inline-block;padding: 10px 20px;background-color: green;opacity: 0.5;margin-left: 10px;color:red;}
+            </style>
+        </meta>
+    </head>
+    <body>
+        <div class="text">
+            <p>
+                距离元旦还剩余:
+                <span class="otime" id="time">
+                </span>
+            </p>
+            <p>
+                当前时间：
+                <span class="otime" id="time1">
+                </span>
+            </p>
+        </div>
+        <script type="text/javascript">
+            //这个函数是为了适应格式 比如：01分01秒;
+    function p (n){
+        return n < 10 ? '0'+ n : n;  
+    }
+
+    //倒计时函数
+    function newTime (){
+        //定义当前时间
+        var startTime = new Date(); 
+        //定义结束时间
+        var endTime = new Date("2018/1/1 00:00:00");
+        
+        //算出中间差并且已毫秒数返回; 除以1000将毫秒数转化成秒数方便运算；
+        var countDown = (endTime.getTime() - startTime.getTime())/1000;
+        
+        //获取天数 1天 = 24小时  1小时= 60分 1分 = 60秒
+        var oDay = parseInt(countDown/(24*60*60));
+        
+        //获取小时数 
+        //特别留意 %24 这是因为需要剔除掉整的天数;
+        var oHours = parseInt(countDown/(60*60)%24);
+        
+        //获取分钟数
+        //同理剔除掉分钟数
+        var oMinutes = parseInt(countDown/60%60);
+        
+        //获取秒数
+        //因为就是秒数  所以取得余数即可
+        var oSeconds = parseInt(countDown%60);
+        
+        //下面就是插入到页面事先准备容器即可;
+        var html =  "<span>" + p(oDay) + "天</span>"+ "<span>" + p(oHours) + "时</span>" + "<span>" + p(oMinutes) + "分</span>" +"<span>" + p(oSeconds) + "秒</span>";
+        document.getElementById('time').innerHTML = html;
+        
+        //别忘记当时间为0的，要让其知道结束了;
+        if(countDown < 0){
+            document.getElementById('time').innerHTML = '元旦到了';
+        }
+    }
+        </script>
+    </body>
+</html>

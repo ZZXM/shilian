@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>折翼的天使</title>
+<style>
+input[type=button] {
+    height: 32px;
+    font-size: 100%;    
+}
+</style>
+</head>
+
+<body>
+
+<img src="http://img.mukewang.com/54447b06000171a002560191.jpg">
+<img src="http://img.mukewang.com/54447f4a0001eb7d01910256.jpg">
+<img src="http://img.mukewang.com/54447f550001ccb002560191.jpg">
+<p><input type="button" id="button" value="点击第2张图片应用position:absolute变天使"></p>
+<script>
+var btn=document.getElementById("button");
+var img2=document.getElementsByTagName("img")[1];
+  if (button && img2) {
+    var valueinit=button.value;
+    button.onclick=function() {
+      if(this.value==valueinit){
+        img2.style.position = 'absolute';
+        this.value="chexiao";
+      }else {
+        img2.style.position = '';
+        this.value=valueinit;
+      }
+    };
+
+  }
+</script>
+</body>
+</html>

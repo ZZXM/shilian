@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="example-2">
+		<ul>
+			<li v-for='el in products'>
+				{{el.name}}-${{el.price}}-{{el.category}}
+			</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var a=new Vue({
+			el:'#example-2',
+			data:{
+				products:[
+					{name:'a',price:25,category:'accessories'},
+					{name:'b',price:20,category:'accessories'},
+					{name:'c',price:21,category:'accessories'},
+					{name:'d',price:22,category:'accessories'},
+					{name:'e',price:23,category:'accessories'},
+					{name:'f',price:24,category:'accessories'},
+					{name:'g',price:26,category:'accessories'},
+					{name:'h',price:27,category:'accessories'},
+					{name:'i',price:28,category:'accessories'},
+				]
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<div class="default-layout contractdata-list">
+    <div class="section-group">
+        <ul class="nav nav-tabs">
+            <li v-if="op.activity_list"><a href="{{'/contractdata/activitylist' | url}}">{{'ActivityList.activitylist' | tr}}</a></li>
+            <li v-if="op.gift_list"><a href="{{'/contractdata/giftlist' | url}}">{{'ActivityList.gift' | tr}}</a></li>
+            <li v-if="op.gradeprice_list"><a href="{{'/contractdata/quotelist' | url}}">{{'ActivityList.quote' | tr}}</a></li>
+            <li v-if="op.gift_list" class="active"><a href="{{'/contractdata/giftlistcopy' | url}}">哇哈哈</a></li>
+            <li v-if="op.gift_list"><a href="{{'/contractdata/giftlistcopy1' | url}}">哇哈</a></li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <div class="form-group ">
+            <label class="label-text">xxx</label>
+            <!-- 地区-->
+            <popselect datas="{{@options.status}}" value="{{@query.status}}" select-all=""></popselect>
+
+            <label class="label-text">{{'lessonPlanOrder.courseName' | tr}}：</label>
+            <!--意向课程-->
+            <popselect datas="{{options.subjects}}" value="{{@query.subjectId}}" select-all=""></popselect>
+
+
+            <label class="label-text">{{'lessonPlanOrder.examYear' | tr}}：</label>
+            <!--高考年份-->
+            <popselect datas="{{@options.examYear}}" value="{{@query.examYear}}" select-all=""></popselect>
+        </div>
+        <p class="btn btn-default btn-def"> 搜索</p>
+        <a class="btn btn-default btn-def" href="{{ '/contractdata/create/2?'| url }}">新建礼品</a>
+        <simpletable rows="{{@rows}}" columns="{{@columns}}" flags="{{@flags}}" partials="{{@partials}}" module="{{module}}" sort-key="ture" class=""></simpletable>
+        <!--rows: [],		//行数据
+        cols: {},		//列数据
+        columns: [],		//列名称
+        module:'',		//模块, 用来翻译column
+        sortKey: '',		//sortKey为false时关闭排序
+        reversed: {},		//排序暂存数据
+        filterKey: '',		//数据过滤
+        classFilter : null,	//自定类名过滤器
+         partialFilter: null,	//自定片段过滤器
+        partials: {},  		//自定义片段图 partials: { key:{ name:"mmx", partial:"mmb"} }
+        flags : {
+                check: false,   //是否显示checkbox
+                index: false,	//是否显示编号
+        },
+        checkAll: false,        //是否全选
+        context: null,		//上下文对象引用
+        theadclick:null,
+                op:{}		//操作权限控制对象-->
+        <define-partial name="Gift-to-delete">
+            <a v-on="click:dispatch('delGift', entry)">编辑</a>
+        </define-partial>
+        <div class="paging-row page-foot">
+            <paging query="{{@query}}" url="{{@url}}" paging="{{@paging}}" show-data-count="true" rang-step="5"></paging>
+        </div>
+    </div>
+</div>

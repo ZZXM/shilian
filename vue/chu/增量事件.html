@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+</head>
+
+<body>
+    <div id="counter-event">
+        <!--counter-event 计算器-事件-->
+        <p>{{ total }}</p>
+        <button-counter v-on:int="incrementTotal"></button-counter>
+        <!--increment：增量 v-on 监听事件（绑定自定义事件）-->
+        <button-counter v-on:int="incrementTotal"></button-counter>
+        <!--boutton-counter是个组件 -->
+    </div>
+
+    <script>
+        Vue.component("button-counter", {
+            //  调用Vue.componert()的方法注册组件，名字为 button-counter  component组件
+            template: '<button v-on:click="increment">{{counter}}</button>',
+            // 组件模板内容
+            data: function() {
+                // 组件data内必须为函数内容
+                return {
+                    counter: 0
+
+
+                }
+            },
+            methods: {
+                increment: function() {
+                    this.counter += 1
+                    this.$emit('int')
+                }
+            },
+        })
+
+        new Vue({
+            el: '#counter-event',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

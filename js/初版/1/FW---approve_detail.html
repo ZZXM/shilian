@@ -1,0 +1,163 @@
+def([
+//def引进页面需要的东西
+    'page/common.js',
+    'view/flow/approve_detail.html',
+    'component/dialog.js',
+    'js/validate.js',
+    'js/utils.js',
+    'component/paging.js',
+    'component/simpletable.js',
+    'component/addins/popselect.js',
+    'component/addins/popselectm.js',
+    'component/date_search.js',
+    'component/roster/department_member.js'
+], function(CommonPage, tpl, Dialog, Validate, Utils) {                                      
+//commonpage:菜单,tpl:模板,dialog:弹出框,validate:utils:辅助功能库
+    var Page = CommonPage.extend({
+//将内容挂载到菜单上(extend为类或者对象增加新的方法)
+        menu: 'flow/approve_detail',
+//这个页面属于那个菜单栏
+        detach: function() {
+            this.vm.$destroy(true);
+        },
+//detach使上一个页面与这个页面分离(destroy关闭上一个页面)
+        render: function(route) {
+//render渲染页面
+            var rquery = route.query;
+//路由里面的query赋值给rquery
+         // var flag = route.args.flag; //0=>待我审批;1=>我发起的;2=>我已审批
+            var vm = this.vm = new Vue({
+                el: this._el,
+//挂载目标
+                replace: false,
+//是否替换临时组件(占位符功能)
+                template: tpl,
+//字符串模板作为vue实例的标识使用。模板会替换挂载的元素。
+                data: {
+//vue实例的数据对象(html所有自定义数据需要在date里面定义)
+                    dateSearch: {
+//时间
+                        startDate: rquery.startTimeStart || Utils.getDate(-30).format("yyyy-MM-dd"),
+                        endDate: rquery.startTimeEnd || Utils.getDate(0).format("yyyy-MM-dd")
+                    },
+                    //选项列表
+                    options: {
+                          "flowId": [],
+                          "status":"",//流程状态
+                          "grade":[],//报名年级
+                          "flowNo": [],//流程编号
+                          "contractId":[],//成单编号
+                          "userId":[],//学生编号
+                          "contractId":"",//成单编号
+                          "userName":"",//学生姓名
+                          "year":[],//高考年份：
+                          "startUserName":"",//审批人
+                          "dept":"",//申请人所在部门
+                    },
+                    //表格相关
+                    module: 'Flow', // 模块
+                    columns: [
+                          "flowNo",   //string  required  流程编号
+                          "userId",   //string  required  学生编号
+                          "userName",   //string  required  学生姓名
+                          "contractId", //string  required  成单编号
+                          "grade",    //string  required  报名年级
+                          "year",   //string  required  高考年份
+                          "startUserName",//string  required  申请人
+                          "dept",   //string  required  申请人所在部门
+                          "startTime",    //string  required  申请日期开始
+                          "urgent",   //string  required  紧急程度
+                          "stepName",   //string  required  操作步骤
+                          "status",   //string  required  流程状态
+                          "stayHour",   //string  required  停留时长
+                          "currentUser",    //string  optional  审批人
+                          "receiveTime",//string  required  审批时间
+                    ],
+                    partials: {
+//自己定义的片段
+                        flowNo: 'partial-flowNo-type'
+                    },
+                    flags: { check: true },
+                    rows: [],//行
+                    //分页相关
+                    url: route.path,
+                    query: {
+//搜索
+                          "startTimeStart": rquery.startTimeStart || "", //string required 上课开始时间
+                          "startTimeEnd": rquery.startTimeEnd || "", //string required 上课结束时
+                          "userId":rquery.userId||"",//学生编号
+                          "flowNo": rquery.flowNo || "",
+                          "flowName": rquery.flowName || "",
+                          "contractId":rquery.contractId||"",//成单编号
+                          "userName":rquery.userName||"",//学生姓名
+                          "status": rquery.status || "", //流程状态
+                          "dept":rquery.dept||[],//申请人所在部门
+                          "year":rquery.year||"",//高考年份
+                          "grade":rquery.grade||[],//报名年级
+                          "currentUser":rquery.currentUser||""//审批人
+                    },
+                    reBody: {
+                    },
+
+                    paging: {
+                        pageNo: rquery.pageNo || 1, // 当前第几页数据(从1开始)
+                        pageSize: rquery.pageSize || 10, // 一页显示多少条数据
+                        pageCount: 1,
+                        dataCount: 0
+                    },
+                    op: {}
+                },
+                computed: {
+//关于计算的方法
+                    searchQuery: function() {
+                        this.query.startTimeStart = this.dateSearch.startDate || "";
+                        this.query.startTimeEnd = this.dateSearch.endDate || "";
+                        return this.url + '?' + jet.Query.stringify(this.query);
+                    },
+                    resetQuery:function () {
+                    return this.url;
+                  }
+                },
+                watch: {},
+                compiled: function() {
+                    this.fetchlist();
+                    this.fetchQuery();
+                },
+                methods: {
+                    fetchlist: function() {
+                        var self = this;
+                        App.api.get('flow_getFlowListOption').success(function(data) {
+                            self.options.year = data.year;
+                            self.options.flowId = data.flowId;
+                            self.options.status = data.status;
+                            self.options.grade = data.grade;
+                            self.options.dept = data.dept;
+                        });
+                    },
+                    fetchQuery: function() {
+                        var self = this;
+                            // self.columns.$remove('startUserName');
+                            // self.columns.$remove('stayHour');
+
+                        App.api.get('flow_flowList', jet.extend({}, self.query, {
+                            pageNo: this.paging.pageNo,
+                            pageSize: this.paging.pageSize
+                        })).success(function(data) {
+                            self.rows = data.content.map(function(item) {
+                                return item;
+                            });
+                            self.paging.pageCount = data.pageCount;
+                            self.paging.pageNo = data.pageNo;
+                            self.paging.pageSize = data.pageSize;
+                            self.paging.dataCount = data.dataCount;
+
+                        });
+                    }
+                },
+                events: {}
+            });
+            this.display();
+        }
+    });
+    return Page;
+});

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>
+        Document
+      </title>
+    </meta>
+  </head>
+  <body>
+    <span onclick="XXXX('test.html')">
+      xxxxxxxx
+    </span>
+    <script>
+      function XXXX(url) {
+      	// 发起请求
+      		
+    		httpRequest =new  XMLHttpRequest();
+    		httpRequest.overrideMimeType("text/xml");
+
+    		httpRequest.onreadystatechange =function () { alertContents(httpRequest); };
+    			httpRequest.open('GET',url,true);
+    			httpRequest.send('');
+
+    	function alertContents(httpRequest) {
+    }
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                alert(httpRequest.responseText);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>公开课</title>
+    <link rel="stylesheet" href="__HFCSS__/gongkaike/weui.css" />
+    <link rel="stylesheet" href="__HFCSS__/gongkaike/jquery-weui.min.css">
+    <link rel="stylesheet" href="__HFCSS__/gongkaike/base.css" />
+    <link rel="stylesheet" href="__HFCSS__/gongkaike/page.css" />
+
+    <style type="text/css">
+        .hide {
+            display: none;
+        }
+        
+        .swiper-container {
+            width: 100%;
+        }
+        
+        .swiper-container img {
+            display: block;
+            width: 100%;
+        }
+        
+        .weui_cell {
+            padding: 0px;
+        }
+        
+        .weui_media_box.weui_media_text .weui_media_info {
+            margin-top: 6px;
+        }
+        
+        .button .bd {
+            padding: 0 15px;
+            margin-bottom: 10px;
+        }
+        
+        .weui_media_box {
+            padding-top: 10px;
+        }
+        
+        .navbar {
+            height: 100%;
+        }
+        
+        .weui_cell_rt {
+            float: right;
+        }
+        
+        .tabbar {
+            box-sizing: border-box;
+            height: 100%;
+            padding-bottom: 55px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .banner_page {
+            position: relative;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .weui_tab_bd {
+            height: auto;
+        }
+        
+        .weui_cell {
+            font-size: 17px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container" id="container" ontouchstart="">
+
+        <div class="navbar">
+            <div class="tabbar">
+                <div class="banner_page">
+                    <if condition=" $slide_show neq '' ">
+                        <div class="swiper-container swiper-container-horizontal">
+                            <div class="swiper-wrapper" style="transform: translate3d(-640px, 0px, 0px); transition-duration: 300ms;">
+                                <volist name="slide_show" id="ss">
+                                    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="0" style="width: 320px;">
+                                        <a href="{$ss.url}"><img src="/gongkai{$ss.img}"></a>
+                                    </div>
+                                </volist>
+                            </div>
+                            <!-- <div class="swiper-pagination swiper-pagination-bullets">
+                             <volist name="slide_show" id="ss">
+                             <span class="swiper-pagination-bullet"></span>
+                             </volist>
+                         </div> -->
+
+                        </div>
+                    </if>
+                </div>
+
+                <div class="weui_tab_bd <if condition=" $default_all eq 1 ">cur</if>">
+                    <volist name="all_data" id="ad">
+                        <div class="weui_panel">
+
+                        	<!-- 时间和人 -->
+                            <div class="weui_panel_hd weui_media_info">
+                                <span class="weui_cell_hd" style="float:left;">
+                                	<img src="__HFIMG__/gongkaike/icon/time.png" alt="" style="width:20px;margin-right:8px;display:block">
+                            	</span>
+                                <span class="weui_media_info_meta">{$ad.course_time}</span>
+                                <span class="weui_cell_rt"><a href="javascript:;" class="people">{$ad.visit_count}</a>人报名</span>
+                            </div>
+
+                           <!--  测试和报名 -->
+                            <div class="weui_panel_bd">
+                                <div class="weui_media_box weui_media_text weui_cells_access weui_xxxx " onclick="location.href='{$ad.link}'">
+                                    <a class="weui_cell" href="{$ad.link}">
+                                        <div class="weui_cell_hd"><img src="__HFIMG__/gongkaike/icon/{$ad.subject}.png" alt="" style="width:20px;margin-right:8px;display:block;"></div>
+                                        <div class="weui_cell_bd weui_cell_primary">
+                                            <p>{$ad.title}</p>
+                                        </div>
+                                        <span class="weui_cell_ft"></span>
+                                    </a>
+                                    <ul class="weui_media_info">
+                                        <if condition="($ad.baoming eq 1) ">
+                                            <li class="weui_media_info_meta ">
+                                                已报名
+                                            </li>
+                                            <else/>
+                                            <li class="weui_media_info_meta mianfei ">
+                                                免费
+                                            </li>
+                                        </if>
+                                        <li class="weui_media_info_meta weui_media_info_meta_extra">{$ad.author}</li>
+                                    </ul>
+                                </div>
+                                <!-- 报名 -->
+                                <if condition="$ad.is_first eq 1 ">
+                                    <if condition="$ad.baoming eq 0 ">
+                                        <div class="button">
+                                            <div class="bd spacing">
+                                                <if condition="$ad.has_reg eq 0 ">
+                                                    <if condition="$Think.get.channel neq ''">
+                                                        <a href="?s=/addon/Gongkaike/Index/applyGKK/id/{$ad.id}/channel/{$Think.get.channel}/cgid/{$Think.get.cgid}" class="weui_btn weui_btn_warn">立即报名</a>
+                                                        <else/>
+                                                        <a href="?s=/addon/Gongkaike/Index/applyGKK/id/{$ad.id}" class="weui_btn weui_btn_warn">立即报名</a>
+                                                    </if>
+                                                    <else/>
+                                                    <a href="javascript:;" class="weui_btn weui_btn_warn reg" cid="{$ad.id}" run="{$ad.is_runing}" link="{$ad.lession_link}">立即报名</a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                        <elseif condition="$ad.baoming eq 1" />
+                                        <div class="button">
+                                            <div class="bd spacing">
+                                                <a href="javascript:;" class="weui_btn weui_btn_disabled weui_btn_default">已报名</a>
+                                            </div>
+                                        </div>
+                                        <elseif condition="$ad.baoming eq 2" />
+                                        <div class="button">
+                                            <div class="bd spacing">
+                                                <a href="{$ad.lession_link}" class="weui_btn weui_btn_primary">进入课堂</a>
+                                            </div>
+                                        </div>
+                                    </if>
+                                </if>
+
+                            </div>
+                        </div>
+                    </volist>
+                    <if condition=" $all_data eq '' ">
+
+                        <div class="weui_cells_title" style="color:#999;">暂无新课发布</div>
+                    </if>
+
+                    <div class="bd">
+                        <div class="weui_cells_title">
+                            已结束课程
+                        </div>
+                    </div>
+
+                    <if condition=" $over_lession neq '' ">
+                        <volist name="over_lession" id="ol">
+                            <div class="weui_panel end_pannel" onclick="location.href='?s=/addon/Gongkaike/Index/detail/id/{$ol.id}'">
+                                <div class="weui_panel_hd weui_media_info">
+                                    <span class="weui_cell_hd" style="float:left;">
+                            <img src="__HFIMG__/gongkaike/icon/time.png" alt="" style="width:20px;margin-right:5px;display:block">
+                        </span>
+                                    <span class="weui_media_info_meta">{$ol.shijian}</span>
+                                    <span class="weui_cell_rt"><a href="javascript:;" class="people">{$ol.visit_count}</a>人报名</span>
+                                </div>
+                                <div class="weui_panel_bd">
+                                    <div class="weui_media_box weui_media_text weui_cells_access weui_xxxx">
+                                        <a class="weui_cell" href="?s=/addon/Gongkaike/Index/detail/id/{$ol.id}">
+                                            <div class="weui_cell_hd"><img src="__HFIMG__/gongkaike/icon/{$ol.subject}{$ol.subject}.png" alt="" style="width:20px;margin-right:8px;display:block;"></div>
+                                            <div class="weui_cell_bd weui_cell_primary">
+                                                <p>{$ol.title}</p>
+                                            </div>
+                                            <span class="weui_cell_ft"></span>
+                                        </a>
+                                        <ul class="weui_media_info">
+                                            <li class="weui_media_info_meta">已结束</li>
+                                            <li class="weui_media_info_meta weui_media_info_meta_extra">{$ol.author}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </volist>
+                        <else/>
+                        <div class="weui_cells_title" style="color:#999;">暂无数据</div>
+                    </if>
+
+                </div>
+                <div class="weui_tab_bd <if condition=" $default_all eq 0 ">cur</if>">
+                    <div class="">
+                        <div class="weui_panel_bd">
+                            <volist name="my_data" id="md">
+                                <div class="weui_panel">
+                                    <div class="weui_panel_hd weui_media_info">
+                                        <span class="weui_cell_hd" style="float:left;">
+                                    <img src="__HFIMG__/gongkaike/icon/time.png" alt="" style="width:20px;margin-right:5px;display:block">
+                                </span>
+                                        <span class="weui_media_info_meta">{$md.course_time}</span>
+                                        <span class="weui_cell_rt"><a href="javascript:;" class="people">{$md.visit_count}</a>人报名</span>
+                                    </div>
+                                    <div class="weui_panel_bd">
+                                        <div class="weui_media_box weui_media_text weui_cells_access ">
+                                            <a class="weui_cell" href="{$md.link}">
+                                                <div class="weui_cell_hd">
+                                                    <if condition="$md.is_over eq 1">
+                                                        <img src="__HFIMG__/gongkaike/icon/{$md.subject}{$md.subject}.png" alt="" style="width:20px;margin-right:8px;display:block"></div>
+                                                <else/>
+                                                <img src="__HFIMG__/gongkaike/icon/{$md.subject}.png" alt="" style="width:20px;margin-right:8px;display:block"></div>
+                                        </if>
+                                        <div class="weui_cell_bd weui_cell_primary">
+                                            <p>{$md.title}</p>
+                                        </div>
+                                        <span class="weui_cell_ft"></span>
+                                        </a>
+                                        <ul class="weui_media_info">
+                                            <li class="weui_media_info_meta">
+                                                已报名
+                                            </li>
+                                            <li class="weui_media_info_meta weui_media_info_meta_extra">{$md.author}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <if condition="$md.is_first eq 1 ">
+                                    <if condition="$md.baoming eq 1">
+                                        <div class="button">
+                                            <div class="bd spacing">
+                                                <a href="javascript:;" class="weui_btn weui_btn_disabled weui_btn_default">已报名</a>
+                                            </div>
+                                        </div>
+                                        <elseif condition="$md.baoming eq 2" />
+                                        <div class="button">
+                                            <div class="bd spacing">
+                                                <a href="{$md.link}" class="weui_btn weui_btn_primary">进入课堂</a>
+                                            </div>
+                                        </div>
+                                    </if>
+                                </if>
+                        </div>
+
+
+                        </volist>
+
+                        <if condition="$no_my_data eq 1">
+                            <div class="weui_cells_title">
+                                暂无符合条件的课程
+                            </div>
+
+                        </if>
+                        <div class="bd">
+                            <div class="weui_cells_title">
+                                已结束课程
+                            </div>
+                        </div>
+
+                        <volist name="my_over_data" id="omd">
+                            <div class="weui_panel">
+                                <div class="weui_panel_hd weui_media_info">
+                                    <span class="weui_cell_hd" style="float:left;">
+                                    <img src="__HFIMG__/gongkaike/icon/time.png" alt="" style="width:20px;margin-right:5px;display:block">
+                                </span>
+                                    <span class="weui_media_info_meta">{$omd.course_time}</span>
+                                    <span class="weui_cell_rt"><a href="javascript:;" class="people">{$omd.visit_count}</a>人报名</span>
+                                </div>
+                                <div class="weui_panel_bd">
+                                    <div class="weui_media_box weui_media_text weui_cells_access ">
+                                        <a class="weui_cell" href="{$omd.link}">
+                                            <div class="weui_cell_hd">
+                                                <if condition="$omd.is_over eq 1">
+                                                    <img src="__HFIMG__/gongkaike/icon/{$omd.subject}{$omd.subject}.png" alt="" style="width:20px;margin-right:8px;display:block"></div>
+                                            <else/>
+                                            <img src="__HFIMG__/gongkaike/icon/{$omd.subject}.png" alt="" style="width:20px;margin-right:8px;display:block"></div>
+                                    </if>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <p>{$omd.title}</p>
+                                    </div>
+                                    <span class="weui_cell_ft"></span>
+                                    </a>
+                                    <ul class="weui_media_info">
+                                        <li class="weui_media_info_meta">
+                                            已结束
+                                        </li>
+                                        <li class="weui_media_info_meta weui_media_info_meta_extra">{$omd.author}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                    </volist>
+                    <if condition="$no_my_over_data eq 1">
+                        <div class="weui_cells_title" style="color:#999;">暂无数据</div>
+                    </if>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="weui_tabbar ">
+        <div class="weui_navbar_item <if condition=" $default_all eq 1 ">weui_bar_item_on</if>" onclick="location.href='?s=/addon/Gongkaike/Index/index/'">
+            全部课程
+        </div>
+        <div class="weui_navbar_item <if condition=" $default_all eq 0 ">weui_bar_item_on</if>" onclick="location.href='?s=/addon/Gongkaike/Index/index/my/1/reload/1'">
+            我的课程
+        </div>
+    </div>
+
+
+    <div class="weui_dialog_alert" id="success" style="display:none;" style="z-index:99999">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><i class="weui_icon_success"></i><strong class="weui_dialog_title">报名成功</strong></div>
+            <div class="weui_dialog_bd">
+                <p class="weui_msg_desc">开课时间：<span class="alert_time"></span></p>
+                <p class="weui_msg_desc">
+                    请在开课前做好上课准备
+                </p>
+            </div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+            </div>
+        </div>
+    </div>
+
+    <!--报名成功 开始-->
+    <div class="weui_dialog_confirm" id="bm_success" style="display:none">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">恭喜您</strong></div>
+            <div class="weui_dialog_bd">您已获赠精品公开课学习资料，是否立即查看？</div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog default">稍后再去</a>
+                <a href="?s=addon/Gongkaike/Index/canStudyFile" class="weui_btn_dialog " style="color: #00a0e9;">马上查看</a>
+            </div>
+        </div>
+    </div>
+    <!--报名成功 结束-->
+
+
+    <style type="text/css">
+        .weui_tab_bd {
+            display: none;
+        }
+        
+        .cur {
+            display: block;
+        }
+    </style>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        window._pt_lt = new Date().getTime();
+    </script>
+
+    <script src="http://cdn.bootcss.com/jquery-weui/0.8.0/js/swiper.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            var is_submit = "{$is_submit}";
+            var alert_time = "{$alert_time}";
+            var time = "{$time}";
+            var exp = new Date();
+            var timestamp = Date.parse(new Date()) / 1000;
+            var last_shot_time = window.localStorage.last_shot_time;
+
+            $(".swiper-container").swiper({
+
+                loop: true,
+                speed: 1000,
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                grabCursor: true,
+                parallax: true,
+                autoplayDisableOnInteraction: false
+            });
+
+            //00a0e9
+            $('.primary').click(function() {
+                $('#success').hide();
+            })
+            if (!last_shot_time) last_shot_time = 0;
+            var left_time = timestamp - last_shot_time;
+            if ((left_time > 3600) && time != "0") {
+                $('#bm_success').show();
+                window.localStorage.last_shot_time = timestamp;
+            }
+
+            $('.default').click(function() {
+                $('#bm_success').hide();
+            });
+
+            $('.spacing').on('click', '.reg', function() {
+                //$('.reg').click(function(){
+                if (is_submit == 1) return;
+                var _id = $(this).attr('cid');
+                var run = $(this).attr('run');
+                var $this = $(this);
+
+                var cgid = "{$Think.get.cgid}";
+                var params = {
+                    'c_id': _id,
+                };
+
+                if (cgid) {
+                    params['cgid'] = cgid;
+                }
+
+                $.post('{:U("/addon/Gongkaike/Index/apply")}', params, function(data) {
+                    if (!data.isok) {
+                        alert(data.msg);
+                        return;
+                    } else {
+                        is_submit = 1;
+                        $this.removeClass('weui_btn_warn').removeClass('reg');
+                        if (run == '1') {
+                            $this.addClass('weui_btn_primary');
+                            $this.text('进入课堂');
+                            $this.attr('href', 'http://wx.xxxx.com/gongkaike/index.php?s=/addon/WeiSite/WeiSite/shipin/detail/' + _id + '.html');
+
+                        } else {
+                            $this.addClass('weui_btn_disabled').addClass('weui_btn_default');
+                            $this.text('已报名');
+                        }
+                        $('.alert_time').text(alert_time);
+                        $('#success').show();
+                    }
+
+                }, 'json');
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        wx.config({
+            debug: false,
+            appId: "wxc0b5dfa06f872eee",
+            timestamp: '{$jsSdk["time"]}',
+            nonceStr: '{$jsSdk["nonceStr"]}',
+            signature: '{$jsSdk["signature"]}',
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'
+            ]
+        });
+        wx.ready(function() {
+            //朋友圈
+            wx.onMenuShareTimeline({
+                title: '公开课列表', // 分享标题
+                link: '{$share_link}', // 分享链接
+                imgUrl: 'http://wx.xxxx.com/gongkai/Public/static/haifeng/imgs/gongkaike/gkk_logo.jpg', // 分享图标
+                success: function() {},
+                cancel: function() {}
+            });
+            //分享到朋友
+            wx.onMenuShareAppMessage({
+                title: '公开课列表', // 分享标题
+                desc: '公开课列表', // 分享描述
+                link: '{$share_link}', // 分享链接
+                imgUrl: 'http://wx.xxxx.com/gongkai/Public/static/haifeng/imgs/gongkaike/gkk_logo.jpg', // 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {},
+                cancel: function() {}
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        window._pt_sp_2 = [];
+        _pt_sp_2.push('setAccount,3f2a2aa4');
+        var _protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+
+        (function() {
+            var atag = document.createElement('script');
+            atag.type = 'text/javascript';
+            atag.async = true;
+            atag.src = _protocol + 'js.ptengine.cn/js/pta.js';
+            var stag = document.createElement('script');
+            stag.type = 'text/javascript';
+            stag.async = true;
+            stag.src = _protocol + 'js.ptengine.cn/js/pts.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(atag, s);
+            s.parentNode.insertBefore(stag, s);
+        })();
+    </script>
+</body>
+
+</html>

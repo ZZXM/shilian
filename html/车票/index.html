@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta property="qc:admins" content="1656703477630501171006375" />
+    <title>火车余票查询-12306火车余票订票查询|火车票API|在线生成火车票|在线生成水牌--车票100</title>
+    <meta name="keywords" content="火车余票查询,12306订票,在线生成火车票,在线生成水牌,列车时刻表,车次查询,车站查询,代售点查询,汽车票查询,机票查询,火车资讯问题货运常识,火车票API" />
+    <meta name="description" content="车票100为您提供最新 火车票查询,代售点查询,机票查询,汽车票查询,火车资讯,在线生成火车票,在线生成水牌,开放火车票API接口,数据实时来源于--来源12306.cn" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="shortcut icon" href="http://www.chepiao100.com/application/views/statics/images/favicon.ico?201501210011" type="image/x-icon" />
+    <link type="text/css" href="http://www.chepiao100.com/application/views/skins/css/style.css?201501210011" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://www.chepiao100.com/application/views/statics/datapick/css/style.css?201501210011" />
+    <link type="text/css" rel="stylesheet" href="http://www.chepiao100.com/application/views/statics/hots/css/style.css?201501210011" />
+    <link type="text/css" rel="stylesheet" href="http://www.chepiao100.com/application/views/statics/complete/css/jquery.autocomplete.css?201501210011" />
+    <script>
+    var BaseURL = 'http://www.chepiao100.com/';
+    </script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/js/jquery-1.8.2.min.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/datapick/js/jquery.datapick.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/hots/js/jquery.hotcity.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/hots/js/jquery.hotcode.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/complete/js/jquery.autocomplete.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/tablesort/js/jquery.tablesort.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/js/common.js?201501210011"></script>
+    <script type="text/javascript" src="http://www.chepiao100.com/application/views/statics/js/scrolltotop.js?201501210011"></script>
+</head>
+
+<body>
+    <script type="text/javascript" src="http://www.chepiao100.com/seo/location.html"></script>
+    <link type="text/css" rel="stylesheet" href="http://www.chepiao100.com/application/views/statics/tablesort/css/style.css?201501210011" />
+    <!-- head -->
+    <div class="header">
+        <div class="header-in wrap">
+            <div class="logo-wp">
+                <span class="bg logo"><a href="http://www.chepiao100.com/" title="车票100">车票100</a></span>
+            </div>
+            <div class="bg head-new"></div>
+            <div class="head-hd"></div>
+            <div class="head-nav" id="head-nav">
+                <ul>
+                    <li><a href="http://www.chepiao100.com/yupiao.html" class="hon1">火车票查询</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- head -->
+    <div class="main-in wrap">
+        <!-- start column -->
+        <div class="column">
+            <ul>
+                <li class="hon"><em class="bg yp"></em><a href="http://www.chepiao100.com/yupiao.html">余票查询</a></li>
+                <li><em class="bg cc"></em><a href="http://www.chepiao100.com/checi.html">车次查询</a></li>
+                <li><em class="bg cz"></em><a href="http://www.chepiao100.com/chezhan.html">车站查询</a></li>
+                <li><em class="bg ds"></em><a href="http://www.chepiao100.com/daishoudian.html">代售点查询</a></li>
+            </ul>
+        </div>
+        <!-- end column -->
+        <!-- start cont-form -->
+        <div class="cont-form">
+            <div class="bg change"></div>
+            <div class="bg qrcode"></div>
+            <div class="loading"></div>
+            <div class="form_wp">
+                <form action="#" method="post" id="sub_form" name="sub_form">
+                    <div class="form_ipt">
+                        <label>　出发站：</label>
+                        <input type="text" id="startStation" name="startStation" value="" class="station" />
+                        <em class="bg hotip" id="startStation_icon" src="startStation"></em>
+                    </div>
+                    <div class="form_ipt">
+                        <label>　到达站：</label>
+                        <input type="text" id="arriveStation" name="arriveStation" value="" class="station" />
+                        <em class="bg hotip" id="arriveStation_icon" src="arriveStation"></em>
+                    </div>
+                    <div class="form_ipt">
+                        <label>出发日期：</label>
+                        <input type="text" id="date" name="date" value="" />
+                        <em class="wktip" id="date_tip" src="date:date_tip:date_icon"></em>
+                        <em class="bg detip" id="date_icon" src="date"></em>
+                    </div>
+                    <div class="form_btn">
+                        <input type="button" class="sub" value=" 查询 " onClick="doRemain();">
+                        <input type="button" class="res" value=" 重置 " onClick="doRest();">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end cont-form -->
+    </div>
+    <div style="margin-right:auto; margin-left:auto; width:880px; background-color:#FFFFFF; text-align:center; padding-top:10px;">
+        <script type="text/javascript">
+        var cpro_id = "u1975403";
+        </script>
+        <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+    </div>
+    <!-- start container -->
+    <div class="container wrap">
+        <div class="con-init">
+            <h1>热门线路 <a href="http://www.chepiao100.com/remen/yupiao.html" title="更多线路" class="more">>>更多</a></h1>
+            <div class="hotline">
+                <ul>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,上海,2018-02-25.html" title="北京到上海的列车">北京-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,成都,2018-02-25.html" title="北京到成都的列车">北京-成都</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,天津,2018-02-25.html" title="北京到天津的列车">北京-天津</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/蚌埠,上海,2018-02-25.html" title="蚌埠到上海的列车">蚌埠-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/合肥,上海,2018-02-25.html" title="合肥到上海的列车">合肥-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/济南,西安,2018-02-25.html" title="济南到西安的列车">济南-西安</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,青岛,2018-02-25.html" title="上海到青岛的列车">上海-青岛</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/深圳,南昌,2018-02-25.html" title="深圳到南昌的列车">深圳-南昌</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,常州,2018-02-25.html" title="上海到常州的列车">上海-常州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,苏州,2018-02-25.html" title="上海到苏州的列车">上海-苏州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,昆明,2018-02-25.html" title="北京到昆明的列车">北京-昆明</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,牡丹江,2018-02-25.html" title="北京到牡丹江的列车">北京-牡丹江</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/广州,青岛,2018-02-25.html" title="广州到青岛的列车">广州-青岛</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/青岛,福州,2018-02-25.html" title="青岛到福州的列车">青岛-福州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,无锡,2018-02-25.html" title="上海到无锡的列车">上海-无锡</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/沈阳,丹东,2018-02-25.html" title="沈阳到丹东的列车">沈阳-丹东</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/万州,重庆,2018-02-25.html" title="万州到重庆的列车">万州-重庆</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/武昌,宜昌,2018-02-25.html" title="武昌到宜昌的列车">武昌-宜昌</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/郑州,杭州,2018-02-25.html" title="郑州到杭州的列车">郑州-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/苏州,上海,2018-02-25.html" title="苏州到上海的列车">苏州-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,呼和浩特,2018-02-25.html" title="北京到呼和浩特的列车">北京-呼和浩特</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,烟台,2018-02-25.html" title="北京到烟台的列车">北京-烟台</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,郑州,2018-02-25.html" title="北京到郑州的列车">北京-郑州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/常州,杭州,2018-02-25.html" title="常州到杭州的列车">常州-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/成都,长沙,2018-02-25.html" title="成都到长沙的列车">成都-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/重庆,遵义,2018-02-25.html" title="重庆到遵义的列车">重庆-遵义</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/广州,乌鲁木齐,2018-02-25.html" title="广州到乌鲁木齐的列车">广州-乌鲁木齐</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/广州,湛江,2018-02-25.html" title="广州到湛江的列车">广州-湛江</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/哈尔滨,杭州,2018-02-25.html" title="哈尔滨到杭州的列车">哈尔滨-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/邯郸,武昌,2018-02-25.html" title="邯郸到武昌的列车">邯郸-武昌</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/杭州,九江,2018-02-25.html" title="杭州到九江的列车">杭州-九江</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/淮北,上海,2018-02-25.html" title="淮北到上海的列车">淮北-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/嘉峪关,北京,2018-02-25.html" title="嘉峪关到北京的列车">嘉峪关-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/济南,青岛,2018-02-25.html" title="济南到青岛的列车">济南-青岛</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/济南,徐州,2018-02-25.html" title="济南到徐州的列车">济南-徐州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/金华,丽水,2018-02-25.html" title="金华到丽水的列车">金华-丽水</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/南昌,长沙,2018-02-25.html" title="南昌到长沙的列车">南昌-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,北京,2018-02-25.html" title="上海到北京的列车">上海-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/沈阳,北戴河,2018-02-25.html" title="沈阳到北戴河的列车">沈阳-北戴河</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/天津,北京,2018-02-25.html" title="天津到北京的列车">天津-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/天津,武汉,2018-02-25.html" title="天津到武汉的列车">天津-武汉</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/武汉,长沙,2018-02-25.html" title="武汉到长沙的列车">武汉-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/徐州,上海,2018-02-25.html" title="徐州到上海的列车">徐州-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/徐州,西安,2018-02-25.html" title="徐州到西安的列车">徐州-西安</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/杭州,上海,2018-02-25.html" title="杭州到上海的列车">杭州-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/南京,上海,2018-02-25.html" title="南京到上海的列车">南京-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,杭州,2018-02-25.html" title="上海到杭州的列车">上海-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,南京,2018-02-25.html" title="上海到南京的列车">上海-南京</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,无锡,2018-02-25.html" title="上海到无锡的列车">上海-无锡</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/郑州,武汉,2018-02-25.html" title="郑州到武汉的列车">郑州-武汉</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/包头,郑州,2018-02-25.html" title="包头到郑州的列车">包头-郑州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,长春,2018-02-25.html" title="北京到长春的列车">北京-长春</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,长沙,2018-02-25.html" title="北京到长沙的列车">北京-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,福州,2018-02-25.html" title="北京到福州的列车">北京-福州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,石家庄,2018-02-25.html" title="北京到石家庄的列车">北京-石家庄</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,朔州,2018-02-25.html" title="北京到朔州的列车">北京-朔州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,苏州,2018-02-25.html" title="北京到苏州的列车">北京-苏州</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,唐山,2018-02-25.html" title="北京到唐山的列车">北京-唐山</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,厦门,2018-02-25.html" title="北京到厦门的列车">北京-厦门</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/北京,西安,2018-02-25.html" title="北京到西安的列车">北京-西安</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/长春,重庆,2018-02-25.html" title="长春到重庆的列车">长春-重庆</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/长春,上海,2018-02-25.html" title="长春到上海的列车">长春-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/yupiao/上海,兖州,2018-02-25.html" title="上海到兖州的列车">上海-兖州</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="con-init">
+            <h1>热门汽车票 <a href="http://www.chepiao100.com/remen/qichepiao.html" title="更多汽车票" class="more">>>更多</a></h1>
+            <div class="hotline">
+                <ul>
+                    <li><a href="http://www.chepiao100.com/qichepiao/广州,湛江.html" title="广州到湛江的汽车">广州-湛江</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/哈尔滨,杭州.html" title="哈尔滨到杭州的汽车">哈尔滨-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/邯郸,武昌.html" title="邯郸到武昌的汽车">邯郸-武昌</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/杭州,九江.html" title="杭州到九江的汽车">杭州-九江</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/淮北,上海.html" title="淮北到上海的汽车">淮北-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/嘉峪关,北京.html" title="嘉峪关到北京的汽车">嘉峪关-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/济南,青岛.html" title="济南到青岛的汽车">济南-青岛</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/济南,徐州.html" title="济南到徐州的汽车">济南-徐州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/金华,丽水.html" title="金华到丽水的汽车">金华-丽水</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/南昌,长沙.html" title="南昌到长沙的汽车">南昌-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/上海,北京.html" title="上海到北京的汽车">上海-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/沈阳,北戴河.html" title="沈阳到北戴河的汽车">沈阳-北戴河</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/天津,北京.html" title="天津到北京的汽车">天津-北京</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/天津,武汉.html" title="天津到武汉的汽车">天津-武汉</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/武汉,长沙.html" title="武汉到长沙的汽车">武汉-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/徐州,上海.html" title="徐州到上海的汽车">徐州-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/徐州,西安.html" title="徐州到西安的汽车">徐州-西安</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/杭州,上海.html" title="杭州到上海的汽车">杭州-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/南京,上海.html" title="南京到上海的汽车">南京-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/上海,杭州.html" title="上海到杭州的汽车">上海-杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/上海,南京.html" title="上海到南京的汽车">上海-南京</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/上海,无锡.html" title="上海到无锡的汽车">上海-无锡</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/郑州,武汉.html" title="郑州到武汉的汽车">郑州-武汉</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/包头,郑州.html" title="包头到郑州的汽车">包头-郑州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,长春.html" title="北京到长春的汽车">北京-长春</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,长沙.html" title="北京到长沙的汽车">北京-长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,福州.html" title="北京到福州的汽车">北京-福州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,石家庄.html" title="北京到石家庄的汽车">北京-石家庄</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,朔州.html" title="北京到朔州的汽车">北京-朔州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,苏州.html" title="北京到苏州的汽车">北京-苏州</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,唐山.html" title="北京到唐山的汽车">北京-唐山</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,厦门.html" title="北京到厦门的汽车">北京-厦门</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/北京,西安.html" title="北京到西安的汽车">北京-西安</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/长春,重庆.html" title="长春到重庆的汽车">长春-重庆</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/长春,上海.html" title="长春到上海的汽车">长春-上海</a></li>
+                    <li><a href="http://www.chepiao100.com/qichepiao/上海,兖州.html" title="上海到兖州的汽车">上海-兖州</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="con-init">
+            <h1>热门车站 <a href="http://www.chepiao100.com/remen/chezhan.html" title="更多车站" class="more">>>更多</a></h1>
+            <div class="hotline hotline1">
+                <ul>
+                    <li><a href="http://www.chepiao100.com/chezhan/北京,2018-02-25.html" title="北京火车站">北京</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/上海,2018-02-25.html" title="上海火车站">上海</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/成都,2018-02-25.html" title="成都火车站">成都</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/天津,2018-02-25.html" title="天津火车站">天津</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/沈阳,2018-02-25.html" title="沈阳火车站">沈阳</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/石家庄,2018-02-25.html" title="石家庄火车站">石家庄</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/太原,2018-02-25.html" title="太原火车站">太原</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/重庆,2018-02-25.html" title="重庆火车站">重庆</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/哈尔滨,2018-02-25.html" title="哈尔滨火车站">哈尔滨</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/西安,2018-02-25.html" title="西安火车站">西安</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/广州,2018-02-25.html" title="广州火车站">广州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/深圳,2018-02-25.html" title="深圳火车站">深圳</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/武汉,2018-02-25.html" title="武汉火车站">武汉</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/南京,2018-02-25.html" title="南京火车站">南京</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/杭州,2018-02-25.html" title="杭州火车站">杭州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/合肥,2018-02-25.html" title="合肥火车站">合肥</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/济南,2018-02-25.html" title="济南火车站">济南</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/青岛,2018-02-25.html" title="青岛火车站">青岛</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/郑州,2018-02-25.html" title="郑州火车站">郑州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/大连,2018-02-25.html" title="大连火车站">大连</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/长沙,2018-02-25.html" title="长沙火车站">长沙</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/长春,2018-02-25.html" title="长春火车站">长春</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/厦门,2018-02-25.html" title="厦门火车站">厦门</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/南宁,2018-02-25.html" title="南宁火车站">南宁</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/拉萨,2018-02-25.html" title="拉萨火车站">拉萨</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/昆明,2018-02-25.html" title="昆明火车站">昆明</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/南昌,2018-02-25.html" title="南昌火车站">南昌</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/苏州,2018-02-25.html" title="苏州火车站">苏州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/徐州,2018-02-25.html" title="徐州火车站">徐州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/兰州&nbsp;,2018-02-25.html" title="兰州&nbsp;火车站">兰州&nbsp;</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/兖州,2018-02-25.html" title="兖州火车站">兖州</a></li>
+                    <li><a href="http://www.chepiao100.com/chezhan/枣庄,2018-02-25.html" title="枣庄火车站">枣庄</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="con-init">
+            <h1>热门车次 <a href="http://www.chepiao100.com/remen/checi.html" title="更多车次" class="more">>>更多</a></h1>
+            <div class="hotline hotline1">
+                <ul>
+                    <li><a href="http://www.chepiao100.com/checi/D321,2018-02-25.html" title="D321次列车">D321</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K181,2018-02-25.html" title="K181次列车">K181</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K586,2018-02-25.html" title="K586次列车">K586</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T7,2018-02-25.html" title="T7次列车">T7</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T201,2018-02-25.html" title="T201次列车">T201</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/D29,2018-02-25.html" title="D29次列车">D29</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K2288,2018-02-25.html" title="K2288次列车">K2288</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/D3135,2018-02-25.html" title="D3135次列车">D3135</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K1096,2018-02-25.html" title="K1096次列车">K1096</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K1106,2018-02-25.html" title="K1106次列车">K1106</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K390,2018-02-25.html" title="K390次列车">K390</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K7726,2018-02-25.html" title="K7726次列车">K7726</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K190,2018-02-25.html" title="K190次列车">K190</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T69,2018-02-25.html" title="T69次列车">T69</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T186,2018-02-25.html" title="T186次列车">T186</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K155,2018-02-25.html" title="K155次列车">K155</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T14,2018-02-25.html" title="T14次列车">T14</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T61,2018-02-25.html" title="T61次列车">T61</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T145,2018-02-25.html" title="T145次列车">T145</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K9064,2018-02-25.html" title="K9064次列车">K9064</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K921,2018-02-25.html" title="K921次列车">K921</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T131,2018-02-25.html" title="T131次列车">T131</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T238,2018-02-25.html" title="T238次列车">T238</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T9,2018-02-25.html" title="T9次列车">T9</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/D3018,2018-02-25.html" title="D3018次列车">D3018</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T169,2018-02-25.html" title="T169次列车">T169</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/T5,2018-02-25.html" title="T5次列车">T5</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K356,2018-02-25.html" title="K356次列车">K356</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K560,2018-02-25.html" title="K560次列车">K560</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/K1182,2018-02-25.html" title="K1182次列车">K1182</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/1228,2018-02-25.html" title="1228次列车">1228</a></li>
+                    <li><a href="http://www.chepiao100.com/checi/1341,2018-02-25.html" title="1341次列车">1341</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- end  container -->
+    <!-- start footer -->
+    <div class="clearboth"></div>
+    <div style="margin-right:auto; margin-left:auto; width:881px;">
+        <script type="text/javascript">
+        var cpro_id = "u1947922";
+        </script>
+        <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+    </div>
+   
+    <!-- end footer -->
+</body>
+
+</html>

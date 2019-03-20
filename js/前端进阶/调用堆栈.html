@@ -1,0 +1,30 @@
+<script>
+    
+    // 一、函数的值传递和引用传递
+    // 1. 函数的参数如果是基本的数据类型就会生成一个副本传到函数内部
+    // 2. 函数的参数如果是引用数据类型就把引用数据类型的内存地址传到函数内部
+    var xm = {
+        age: 18,
+        score: 4
+    }
+
+    function deepCopy(obj) {
+        var str, newobj = obj.constructor === 'Array' ? [] : {}
+        if (typeof obj === 'object') {
+            return obj;
+        } else if (window.JSON) {
+            str = JSON.stringify(obj);
+            newobj = JSON.parse(str);
+        } else {
+            for (let i in obj) {
+                newobj[i] = typeOf(obj) === 'Object' ? deepCopy(obj) : obj[i]
+            }
+        }
+        return newobj;
+    }
+
+    var xh = deepCopy(xm);
+
+    console.log(xh.age === xm.age);
+    console.log(xh === xm);
+</script>

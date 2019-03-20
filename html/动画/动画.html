@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>@keyframes</title>
+	<style type="text/css">
+		.keyframes {
+			width:100px;
+			height:100px;
+			background:red;
+			position: relative;
+			animation: mymove 5s infinite;	
+		/*	animation-name: mymove;     名字
+			animation-duration: 5s;		过程时间 
+			animation-interation-count: infinite; 轮播次数    		 */
+		/*  animation-timing-function: ease;	
+			animation-delay: 开始延迟;
+			animation-direction:alternate;				方向轮放     */
+		}
+		@keyframes mymove
+		{
+			0%   {top: 0px;left: 0px;}
+			25%  {top: 0px;left: 100px;background:#223344;}
+			50%  {top: 100px;left: 100px;background:344556;}
+			75%  {top: 100px;left: 0px;background:#998877;}
+		/*	to   {top: 200px; background: #556633; width: 300px;}*/
+			100% {top: 0px;left: : 0px;background:#556677; }
+		}
+	</style>
+</head>
+<body>
+	<p>动画属性</p>
+	<div class="keyframes"></div>
+</body>
+</html>

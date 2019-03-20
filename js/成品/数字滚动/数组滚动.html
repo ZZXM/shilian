@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script src="https://cdn.bootcss.com/countup.js/1.9.3/countUp.js"></script>
+    <script type="text/javascript">
+        var number = 4070000
+        var options = {
+            useEasing: true, 
+            useGrouping: true, 
+            separator: '', 
+            decimal: '.', 
+        };
+        var demo = new CountUp('box', 0, number, 0, 2.5, options);
+        if (!demo.error) {
+            demo.start();
+        } else {
+            console.error(demo.error);
+        }
+    </script>
+</body>
+</html>
+

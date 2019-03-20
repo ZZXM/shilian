@@ -1,0 +1,66 @@
+<!-- 新增活动或礼品 -->
+<div class="default-layout contractdata-list">
+    <div v-if="1==flag">
+        <div class="section-group">
+            <div class="section-title">{{'ContractData.newActivity' | tr}}</div>
+        </div>
+        <div class="form-group">
+            <label class="label-text">{{'ContractData.activityName' | tr}}：</label>
+            <input v-model="addCreate.name" maxlength="30" type="text" placeholder="" class="input font-sm">
+        </div>
+        <div class="form-group">
+            <label class="label-text">{{'ContractData.discountRate' | tr}}：</label>
+            <input maxlength="10" v-model="addCreate.value" type="text" placeholder="例如:85.5" class="input font-sm">
+        </div>
+    </div>
+    <div v-if="2==flag">
+        <div class="section-title">{{'ContractData.newGift' |tr}}</div>
+        <div class="form-group">
+            <label class="label-text">{{'ContractData.giftName' | tr}}：</label>
+            <input maxlength="30" v-model="addCreate.name" type="text" placeholder="" class="input font-sm">
+        </div>
+        <div class="form-group">
+            <label class="label-text">{{'ContractData.prices' | tr}}：</label>
+            <input maxlength="10" v-model="addCreate.value" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="单位：元" class="input font-sm">
+        </div>
+    </div>
+    <div v-if="3==flag">
+        <div class="section-title">{{'ContractData.newQuote' |tr}}</div>
+        <div class="form-group">
+            <span style="color:red;">*</span>
+            <label>{{'Quote.grade' |tr}}</label>:
+            <popselect datas="{{options.grade}}" value="{{@query.gradeId}}" all-value=""></popselect>
+        </div>
+        <div class="form-group">
+            <span style="color:red;">*</span>
+            <label>{{'Quote.price' | tr}}:</label>
+            <input maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" v-model="addCreate.price" placeholder="单价:元">
+        </div>
+        <div class="form-group" style="margin-bottom: 30px;padding-bottom: 20px;border-bottom:1px solid #bfbfbf">
+            <span style="color:red;">*</span>
+            <label>师资选择：</label>
+            <label style="margin-right: 20px" v-repeat="item in options.teacherLevel"><input style="margin-right: 5px;" type="radio" name="teacherLevel" value="{{item.value}}" v-model="query.teacherLevel">{{item.text}}</label>
+        </div>
+        <div class="form-group">
+            <table width="600px" class="quote-item">
+                <tr v-repeat="it in addQuote">
+                    <td class="quote-scope">{{'Quote.scope' | tr}}:</td>
+                    <td class="quote-exceed"><span style="color:red;">*</span><label>{{'Quote.exceed' | tr}}</label><input maxlength="4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="h" v-model="it.period"></td>
+                    <td class="quote-exceed"><span style="color:red;">*</span><label>{{'Quote.discount' | tr}}:</label><input maxlength="3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" v-model="it.discount">%</td>
+                    <td><a class="btn-default btn-del" v-on="click:quoteDelete">删除</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a class="btn-default" v-on="click:quoteAdd">添加范围</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="create-action">
+        <button class="btn btn-default button1" v-on="click:addthing(flag)">{{'text.save' | tr}}</button>
+        <button class="btn btn-default" v-on="click:goback">{{'text.cancel' | tr}}</button>
+    </div>
+</div>

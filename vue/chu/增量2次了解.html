@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="counter-exanple">
+		<p>{{to}}</p>
+		<button-counter @increment2="ins"></button-counter>
+		<button-counter @increment2="ins"></button-counter>
+	</div>
+
+	<script type="text/javascript">
+	Vue.component('button-counter',{
+		template:'<button @click="increment1">{{a}}</button>',
+		data: function() {
+			return {
+				a:0
+			}
+		},
+		methods:{
+			increment1:function(){
+				this.a +=1
+				this.$emit('increment2')
+			}
+		}
+	})
+
+	new Vue({
+            el: '#counter-exanple',
+            data: {
+                to: 0
+            },
+            methods: {
+                ins: function() {
+                    this.to += 1
+                }
+            }
+        })
+	</script>
+</body>
+</html>

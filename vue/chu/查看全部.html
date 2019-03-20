@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<ul class="msg-list">
+    <li class="msg-item" v-repeat="it:list"><a data-title="{{it.info}}" v-class="{visited:it.read==1}" href="javascript:;" v-on="click:click(it),mouseenter:mouseenter,mouseleave:mouseleave">{{it.info | dotText 18}}}<span class="msg-date">{{it.sendTimeEnd}}</span></a></li>
+	</ul>
+	<p class="msg-all"><a href="{{ '/message/list/0' | url }}">查看全部</a></p>
+
+	<script type="text/javascript">
+def([
+    './message.html',
+    'layer'
+],function (tpl,layer) {
+    return Vue.component('message', {
+        props: ['status','refreshCallback','length'],
+        template: tpl,
+        replace: true,
+        data: function() {
+            return {
+                layerIndex:0,
+                length:0,
+                dialogStatus:false,
+                refreshCallback:function(){},
+                layertipsIndex:0,
+                delay:60000,
+                list:[]
+            };
+        },
+        ready:function(){
+            var that=this;
+            layer.open({
+                type: 1,
+                title: "消息",
+                closeBtn: 1,
+                shade: false,
+                area: ['360px', '225px'],
+                offset: 'rb', //右下角弹出
+                shift: 2,
+                content: '<div class="message-content"></div>',
+                success:function(layero,index){
+                    that.$appendTo(layero.find('.message-content').get(0));
+                    that.layerIndex=index;
+                    layero.hide();
+                    that.interval();
+                },
+                cancel: function(index){that.status++;return false; }
+            });
+        },
+        watch:{
+            status:function(newValue){
+                this.dialogStatus=newValue%2==1;
+                var display=this.dialogStatus?"block":"none";
+                layer.style(this.layerIndex,{"display":display});
+                if(this.dialogStatus){
+                    this.fetchList();
+                }
+            },
+            length:function(newValue,oldValue){
+                if(newValue==oldValue)return;
+                this.refreshCallback(this.length);
+                if(this.dialogStatus) {
+                    this.fetchList();
+                }
+            }
+        },
+        methods:{
+            click:function(it){
+                var self=this,messageId=it.messageId;
+                this.list.$remove(it);
+                if(this.list.length==0){layer.closeAll('tips');}
+                App.api.post("lmsMessage_read", {messageIds:messageId})
+                    .success(function () {
+                        --self.length;
+                    });
+            },
+            mouseenter:function(e){
+                layer.closeAll('tips');
+                var title=($(e.target).attr("data-title")) || "";
+                if(title.trim().length==0)return;
+                this.layertipsIndex=layer.tips(title, e.target,{ tips: [1, '#3595CC'],time: 0});
+            },
+            mouseleave:function(){
+                layer.close(this.layertipsIndex);
+            },
+            interval:function(){
+                setInterval(this.fetchCount,this.delay);
+                this.fetchCount();
+            },
+            fetchCount:function(){
+                var myDate= new Date();
+                var hh= myDate.getHours();
+                if(hh>=5&&hh<=6){
+                   return;
+               }
+                var self=this;
+                App.api.get("lmsMessage_count", {m:Math.random()})
+                .success(function(recv){
+                        self.length=recv.count;
+                    }).fail(function (recv) {
+                    App.tips.danger(recv.msg);
+                });
+            },
+            fetchList:function(){
+                var self=this;
+                App.api.get("lmsMessage_list", {read:0})
+                .success(function(recv){
+                        self.list=recv.content;
+                    }).fail(function (recv) {
+                    App.tips.danger(recv.msg);
+                });
+            }
+        }
+    });
+});
+	</script>
+</body>
+</html>

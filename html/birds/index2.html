@@ -1,0 +1,45 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>愤怒的小鸟</title>
+</head>
+<style type=text/css>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    <div class="bird">
+        <img src='imgs/1.png' alt="1">
+    </div>
+</body>
+<script type='text/javascript'>
+    var bird = document.getElementsByClassName('bird')[0]
+    bird.style.webkitTransform = "translate(0px,0px)";
+    bird.style.transition = "-webkit-transform 2s ease-out";
+
+    var _index = 0,
+        src = ['imgs/1.png', 'imgs/2.png', 'imgs/3.png']
+
+    var timer = setInterval(function () {
+        _index += 1
+        if (_index > 2) {
+            _index = 0
+        }
+        document.getElementsByTagName('img')[0].src = src[_index]
+    }, 100)
+
+    document.onmouseup = function (ev) {
+        var ev = ev || event
+        var x = ev.clientX - bird.offsetLeft + 'px'
+        var y = ev.clientY - bird.offsetTop + 'px'
+
+        bird.style.webkitTransform = 'translate(' + x + ',' + y + ')'
+        bird.style.transition = '-webkit-transform 2s infinite'
+    }
+</script>
+
+</html>

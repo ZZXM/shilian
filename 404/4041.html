@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="res/404.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="content">
+        <canvas id="effects"></canvas>
+        <div class="main-text">
+            <h1>抱歉~ </h1>
+            <h1>页面找不到</h1>
+            <p class="back-index">＜ 返回首页</p>
+        </div>
+        <div class="ground">
+            <div class="mound">
+                <div class="mound_text">404</div>
+                <div class="mound_spade"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            function ready(fn) {
+                if (document.readyState != 'loading') {
+                    fn();
+                } else {
+                    document.addEventListener('DOMContentLoaded', fn);
+                }
+            }
+
+            function makeCanvas(el) {
+                var ctx = el.getContext('2d');
+                var width = 0;
+                var height = 0;
+                var particles = [];
+                var Particle = function () {
+                    this.x = this.y = this.dx = this.dy = 0;
+                    this.reset();
+                }
+
+                Particle.prototype.reset = function () {
+                    this.y = Math.random() * height;
+                    this.x = Math.random() * width;
+                    this.dx = (Math.random() * 1) - 0.5;
+                    this.dy = (Math.random() * 0.5) + 0.5;
+                    // console.log(this.y,this.x,this.dx,this.dy)
+                }
+
+                function onResize() {
+                    // 让canvas覆盖整个页面
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    el.width = width;
+                    el.height = height;
+                    // console.log(el.width,el.height)
+                    // 根据屏幕大小判断出雪花数量
+                    createParticles((width * height) / 10000);
+                }
+
+                function createParticles(count) {
+                    console.log(count)
+                    if (count != particles.length) {
+                        particles = [];
+                        for (var i = 0; i < count; i++) {
+                            particles.push(new Particle());
+                        }
+                        // console.log(particles)
+                    }
+                }
+
+                function updateParticles() {
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.fillStyle = '#f6f9fa';
+                  
+                    particles.forEach(function (particle) {
+                        // console.log(particle)
+                        particle.y += particle.dy;
+                        particle.x += particle.dx;
+                        if (particle.y > height) {
+                            particle.y = 0;
+                        }
+
+                        if (particle.x > width) {
+                            particle.reset();
+                            particle.y = 0;
+                        }
+                        ctx.beginPath();
+                        ctx.arc(particle.x, particle.y, 5, 0, Math.PI * 2, true );
+                        ctx.fill();
+                    });
+                    window.requestAnimationFrame(updateParticles);
+                }
+
+                onResize();
+                updateParticles();
+                window.onresize = function () {
+                    onResize();
+                }
+
+            }
+            ready(function () {
+                var canvas = document.getElementById('effects');
+                // 判断对canvas的支持
+                if (canvas.getContext) {
+                    console.log('你的浏览器支持Canvas!');
+                    makeCanvas(canvas);
+                } else {
+                    console.log('你的浏览器不支持Canvas!');
+                }
+            });
+        })();
+        // requestAnimationFrame兼容处理
+        (function () {
+            var lastTime = 0;
+            var vendors = ['webkit', 'moz'];
+            for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                window.cancelAnimationFrame =
+                    window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] +
+                        'CancelRequestAnimationFrame'];
+            }
+
+            if (!window.requestAnimationFrame)
+                window.requestAnimationFrame = function (callback, element) {
+                    var currTime = new Date().getTime();
+                    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                    var id = window.setTimeout(function () {
+                            callback(currTime + timeToCall);
+                        },
+                        timeToCall);
+                    lastTime = currTime + timeToCall;
+                    return id;
+                };
+
+            if (!window.cancelAnimationFrame)
+                window.cancelAnimationFrame = function (id) {
+                    clearTimeout(id);
+                };
+        }());
+    </script>
+</body>
+
+</html>

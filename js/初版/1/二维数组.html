@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cart</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script type="text/javascript" src="cart.js"></script>
+  <script type="text/javascript">
+    var myarr=new Array();
+    //声明一维数组
+    for(var i=1;i<4;i++)
+   {
+   myarr[i]=new Array();
+    for(var j=1;j<6;j++)
+   {
+    myarr[i][j]=i*j;
+    document.write("myarr["+i+"]["+j+"]的值:"+myarr[i][j]+"<br>");//+i+字符串连接
+    }
+   }
+  </script>
+
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,76 @@
+<div class="default-layout contractdata-list">
+    <div v-if="!edit">
+        <div class="section-group">
+            <ul class="nav nav-tabs">
+                <li v-if="op.activity_list"><a href="{{'/contractdata/activitylist' | url}}">{{'ActivityList.activitylist' | tr}}</a></li>
+                <li v-if="op.gift_list"><a href="{{'/contractdata/giftlist' | url}}">{{'ActivityList.gift' | tr}}</a></li>
+                <li v-if="op.gradeprice_list" class="active"><a href="{{'/contractdata/quotelist' | url}}">{{'ActivityList.quote' | tr}}</a></li>
+                <li v-if="op.gift_list"><a href="{{'/contractdata/giftlistcopy' | url}}">哇哈哈</a></li>
+                <li v-if="op.gift_list"><a href="{{'/contractdata/giftlistcopy1' | url}}">哇哈</a></li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-default btn-def" href="{{ '/contractdata/create/3?'| url }}">{{'Quote.newQuote' | tr}}</a>
+        </div>
+        <div>
+            <div class="form-group list-quote" v-repeat="header in Detail">
+                <table class="quote-list">
+                    <tr>
+                        <td>{{'Quote.grade' | tr}}:<span>{{header.gradeName}}</span></td>
+                        <td>{{'Quote.price' | tr}}:<span>{{header.price}}</span></td>
+                        <td>师资选择:</td>
+                        <td>{{header.teacherLevelName}}</td>
+                        <td><a class="btn-default" v-on="click:editQuote(header)">{{'Quote.edit' |tr}}</a></td>
+                        <td><a class="btn-default" v-on="click:delQuote(header)">{{'Quote.delete' |tr}}</a></td>
+                    </tr>
+                    <tr v-repeat="body in header.discounts">
+                        <td><label>{{'Quote.scope' |tr}}:</label>{{body.period}}h</td>
+                        <td><label>{{'Quote.discount' |tr}}:</label>{{body.discount}}%</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div v-if="edit">
+        <div class="section-title">{{'ContractData.edit' |tr}}</div>
+        <div class="form-group">
+            <span style="color:red;">*</span>
+            <label>{{'Quote.grade' |tr}}</label>
+            <span>{{query.gradeName}}</span>
+        </div>
+        <div class="form-group">
+            <span style="color:red;">*</span>
+            <label>{{'Quote.price' | tr}}:</label>
+            <input maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" v-model="options.price" placeholder="单价:元">
+        </div>
+        <div class="form-group" style="margin-bottom: 30px;padding-bottom: 20px;border-bottom:1px solid #bfbfbf">
+            <span style="color:red;">*</span>
+            <label>师资选择：</label>
+            <span>{{query.teacherLevelName}}</span>
+        </div>
+        <div class="form-group">
+            <table width="800px" class="quote-item">
+                <tr v-repeat="it in addQuote">
+                    <td class="quote-scope">{{'Quote.scope' | tr}}:</td>
+                    <td class="quote-exceed"><span style="color:red;">*</span><label>{{'Quote.exceed' | tr}}</label><input maxlength="4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="h" v-model="it.period"></td>
+                    <td class="quote-exceed"><span style="color:red;">*</span><label>{{'Quote.discount' | tr}}:</label><input maxlength="3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" v-model="it.discount">%</td>
+                    <td><a class="btn-default btn-del" v-on="click:quoteDelete">删除</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a class="btn-default" v-on="click:quoteAdd">添加范围</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="create-action">
+            <button class="btn btn-default button1" v-on="click:editSaveQuote">{{'text.save' | tr}}</button>
+            <button class="btn btn-default" v-on="click:goback">{{'text.cancel' | tr}}</button>
+        </div>
+    </div>
+</div>

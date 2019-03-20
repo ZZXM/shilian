@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+<title><%=htitle%></title>  
+<meta http-equiv="pragma" content="no-cache"></meta>  
+<meta http-equiv="cache-control" content="no-cache"></meta>  
+<meta http-equiv="expires" content="0"></meta>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" ></meta>  
+<link rel="stylesheet" type="text/css" href="../../resources/weixin/css/style.css"></link>  
+<script type="text/javascript" src="../../resources/script/framework/hd_Include.js"></script>  
+<script type="text/javascript">  
+    <span style="color:#cc0000;">function AddMenus(){  
+        var url="goAction.do?opmode=添加&curpath="+document.getElementById("curpath").value;  
+        document.getElementById("openiframe").src=encodeURI(url);  
+        openDiv();  
+        }  
+    function openDiv(){  
+            document.getElementById('light').style.display='block';  
+            document.getElementById('fade').style.display='block';  
+            document.getElementById('fade').style.height=document.documentElement.scrollHeight+'px';  
+        }</span>  
+</script>  
+</head>  
+  
+<body>  
+<form id="form1" name="form1" method="post" action="menuQuery.do">  
+    <!--右边 -->  
+    <div class="cetrt">  
+      <div class="cetrt-title">  
+          <span style="font-size: 14px;font-weight: bolder;"><c:out value="${curpath}"></c:out></span>  
+          <a id="refreshMenu"  href ="javascript:void(0)" onclick="refreshMenu();"></a>  
+          <a class="zengjia" href ="javascript:void(0)" onclick="AddMenus();"></a>  
+      </div>  
+      </div>  
+      <span style="color:#996633;"><!--iframe窗口弹出代码！--></span>  
+     <span style="color:#ff0000;"> <div id="light" class="white_content" style="position:fixed;">  
+        <div style="width:100%;height:100%">  
+            <iframe id="openiframe" src="" width="100%" height="100%" frameborder="0"></iframe>  
+        </div>  
+      </div></span>  
+</form>  
+</body>  
+</html> 

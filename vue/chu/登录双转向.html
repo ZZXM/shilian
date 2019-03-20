@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="example-2">
+		<section v-if='loginstatus'>
+			输入你的名字名字：<input type="text" v-model="name">
+			<p>{{$data | json}}</p>
+			<p>{{name}}</p>
+			<button @click="say">欢迎点击</button>
+			<button v-on:click="swichlogin">退出登录</button>
+		</section>
+		<section v-if="!loginstatus">
+			登录用户:<input type="text">
+			登录密码:<input type="password" >
+			<button @click="swichlogin">login</button>
+		</section>
+	</div>
+
+	<script type="text/javascript">
+	var v=new Vue({
+		el:'#example-2',
+		data:{
+			name:'Appian',
+			loginstatus:false
+		},
+		methods:{
+			say:function (){
+				alert('欢迎'+this.name);
+			},
+			swichlogin:function(){
+				this.loginstatus=!this.loginstatus;
+			}
+		}
+	});
+	</script>
+</body>
+</html>

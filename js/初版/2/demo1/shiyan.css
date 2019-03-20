@@ -1,0 +1,85 @@
+.pop-up{
+	height: 280px;
+	width: 328px;
+	border: 1px solid #000000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+    margin-left: -200px;
+    padding: 10px 32px;
+    display: inline-block;
+    background: #eee;
+    color: #ffffff;
+    display: none;
+}
+.TInput{
+	height: 50px;
+	position: absolute;
+	z-index: 1px;
+	display: inline-block;
+	/*color: #f5f5f5;
+	font-size: 16px;*/
+}
+.TInput input {
+	height: 50px;
+	width: 328px;
+	border: none;
+	font-size: 30px;
+	
+}
+.TInput span{
+	color: #5f2424;
+	font-size: 24px;
+
+}
+.TextContent textarea{
+	width: 322px;
+	height: 150px;
+	position: absolute;
+	margin-top: 70px;
+	font-size: 16px;
+}
+.twoaone{
+	height: 50px;
+	width: 300px;
+}
+.twoatwo{
+	height: 50px;
+	width: 298px;
+}
+.dw-btn.btn-primary{
+	box-sizing: border-box;
+    background: #21B384;
+    color: #ffffff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.dw-btn{    
+	cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 10px 32px;
+    display: inline-block;
+    vertical-align: middle;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #eee;
+    color: #ffffff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    overflow-wrap: break-word;
+}
+button {
+    -webkit-appearance: button;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+}
+

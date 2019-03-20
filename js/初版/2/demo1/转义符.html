@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>转义符</title>
+</head>
+<body>
+<div id="ss">2017-10-11</div>
+<script type="text/javascript">
+	var ss = document.getElementById("ss")
+	var dd = ss.innerHTML
+	var aa = dd.replace(/\-/g,"/")
+	console.log(aa)
+</script>
+</body>
+</html>

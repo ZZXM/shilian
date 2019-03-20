@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<link rel="stylesheet" href="shiyan.css">
+	<script src="./vue.js"></script>
+	
+</head>
+<body>
+	<div class="pop-up"  id="popup">
+		<div class="TInput">
+			<input type="text" id="t1"  >
+			<span id="textlean" >X</span>
+		</div>
+		<div class="TextContent">
+			<textarea  autofocus  type="text" id="t2"></textarea> 
+		</div>	
+		<div class="">
+				<!-- <ul class="">
+					<li><a href=""  onclick="textarea()">取消</a></li>
+					<li><a href="" id="mySaveEl">保存</a></li>
+				</ul> -->
+		</div>
+	</div>
+
+	<button class="dw-btn btn-primary has-hover"  id="dianji" >点击</button>
+
+	<br/>
+	<br/>
+
+	<div class="two">
+		<div>
+			<input class="twoaone"  id="t3"  >
+		</div>
+		<textarea  class="twoatwo"  id="t4" ></textarea>
+	</div>
+	<script type="text/javascript">
+	function  quxiao(){
+		document.getElementById("popup").style.display="none";
+	}
+	document.getElementById('textlean').addEventListener('click', quxiao, true)
+
+
+	function dianji() {
+		document.getElementById('popup').style.display="inline";
+	}
+	document.getElementById('dianji').addEventListener('click', dianji, true)
+	</script>
+</body>
+</html>

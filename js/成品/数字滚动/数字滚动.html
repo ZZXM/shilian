@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <h1 id="num"></h1>
+</body>
+<script type="text/javascript">
+    var numBox = document.getElementById('num');
+    /**
+     * 数字滚动
+     * @param {Object} num 		开始值
+     * @param {Object} maxNum	最大值,最终展示的值
+     */
+    function numRunFun(num, maxNum) {
+        var numText = num;
+        var golb; // 为了清除requestAnimationFrame
+        function numSlideFun() {
+            numText += 1; // 速度的计算可以为小数
+            if (numText >= maxNum) {
+                numText = maxNum;
+                cancelAnimationFrame(golb);
+            } else {
+                golb = requestAnimationFrame(numSlideFun);
+            }
+            numBox.innerHTML = ~~(numText)
+
+        }
+        numSlideFun();
+    }
+    // 运行
+    numRunFun(0, 10000)
+</script>
+<script>
+    // requestAnimationFrame兼容处理
+    (function () {
+        var lastTime = 0;
+        var vendors = ['webkit', 'moz'];
+        for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame =
+                window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] +
+                    'CancelRequestAnimationFrame'];
+        }
+        if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function (callback, element) {
+                var currTime = new Date().getTime();
+                var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                var id = window.setTimeout(function () {
+                        callback(currTime + timeToCall);
+                    },
+                    timeToCall);
+                lastTime = currTime + timeToCall;
+                return id;
+            };
+
+        if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function (id) {
+                clearTimeout(id);
+            };
+    }());
+</script>
+
+</html>

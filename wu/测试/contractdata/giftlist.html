@@ -1,0 +1,21 @@
+<div class="default-layout contractdata-list">
+    <div class="section-group">
+        <ul class="nav nav-tabs">
+            <li v-if="op.activity_list"><a href="{{'/contractdata/activitylist' | url}}">{{'ActivityList.activitylist' | tr}}</a></li>
+            <li v-if="op.gift_list" class="active"><a href="{{'/contractdata/giftlist' | url}}">{{'ActivityList.gift' | tr}}</a></li>
+            <li v-if="op.gradeprice_list"><a href="{{'/contractdata/quotelist' | url}}">{{'ActivityList.quote' | tr}}</a></li>
+            <li v-if="op.gift_list"><a href="{{'/contractdata/giftlistcopy' | url}}">哇哈哈</a></li>
+            <li v-if="op.gift_list"><a href="{{'/contractdata/giftlistcopy1' | url}}">哇哈</a></li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-default btn-def" href="{{ '/contractdata/create/2?'| url }}">{{'GiftList.newGift' | tr}}</a>
+        <define-partial name="gift-del-action">
+            <a v-on="click:dispatch('delGift', entry)">{{'ContractData.delete' |tr}}</a>
+        </define-partial>
+        <simpletable rows="{{@rows}}" flags="{{@flags}}" columns="{{@columns}}" sort-key="true" partials="{{@partials}}" module="{{module}}" class="table-offset table-tiny table-body"></simpletable>
+        <div class="paging-row page-foot">
+            <paging query="{{@query}}" url="{{@url}}" paging="{{@paging}}" show-data-count="true" rang-step="5"></paging>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.Upload-resume-text {
+			width: 100px;
+			padding: 10px 20px;
+			border:1px solid #715656;
+			background: #c3ffcb;
+		}
+	</style>
+</head>
+<body>
+
+<div class="Upload-resume-class" id="container">
+	<input type="hidden" id="uptoken_url" value="">
+	<p class="Upload-resume-text" id="pickfiles">点我选择文件</p>
+	<p class="Upload-resume-status">未选择文件</p>
+	<button id="upload_file">确认上传</button>
+	<p>文件名：<span id="filename"></span></p>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://unpkg.com/qiniu-js@2.1.2/dist/qiniu.min.js"></script>
+<script src="https://o061kmjss.qnssl.com/upload/2018-8-8/plupload.full.min.js"></script>
+<script src="https://o061kmjss.qnssl.com/upload/2018-8-8/moxie.js"></script>
+<script src="https://o061kmjss.qnssl.com/upload/2018-8-8/plupload.dev.js"></script>
+<script src="https://o061kmjss.qnssl.com/upload/2018-8-8/qiniu.js"></script>
+<script>
+	$.ajax({
+		type: "GET",
+		url:"https://s-xue.xxxx.com/qiNiu/uploadAudioToken",
+		dataType: "json",
+		async: false,
+		success: function(res){
+			$('#uptoken_url').val(res.data.uploadToken);
+		}
+	});
+	var uploader = Qiniu.uploader({
+		runtimes: 'html5,flash,html4',
+		browse_button: 'pickfiles',
+		container: 'container',
+		drop_element: 'container',
+		flash_swf_url: 'bower_components/plupload/js/Moxie.swf',
+		dragdrop: true,
+		unique_names: false,
+		save_key: false,
+		chunk_size: '4mb',
+		uptoken: $('#uptoken_url').val(),
+		multi_selection: !(mOxie.Env.OS.toLowerCase() === "ios"),
+		domain: $('#domain').val(),
+		get_new_uptoken: false,
+		auto_start: false,
+		log_level: 5,
+		prevent_duplicates: true,
+		init: {
+			'FilesAdded': function (up, files) {
+				// 文件添加进队列后,处理相关的事情
+				//var videoContent = $("#domain").val(files[0].name)
+				// 查看视频大小(mb)
+				$(".Upload-resume-status").text("文件已添加")
+				var videoContentsize = files[0].size
+				var relSize = parseInt(videoContentsize / 1024 / 1024);
+				if (relSize > 500) {
+					// showErrorMsg('视频文件过大,请重新上传！');
+					return false;
+				}
+			},
+			'BeforeUpload': function (up, file) {
+				// 每个文件上传前,处理相关的事情
+				//console.log(file)
+			},
+			'UploadProgress': function (up, file) {
+				// 每个文件上传时,处理相关的事情
+			},
+			'UploadComplete': function () {
+				//队列文件处理完毕后,处理相关的事情
+			},
+			'FileUploaded': function (up, file, info) {
+				// 每个文件上传成功后,处理相关的事情
+				var info = JSON.parse(info);
+				var videoAddress = "https://o061kmjss.qnssl.com/" + info.key;
+				$("#filename").html(videoAddress);
+			},
+			'Error': function (up, err, errTip) {
+				if (err.response == '{"error":"file exists"}') {
+					var videoAddrerr = "https://o061kmjss.qnssl.com/" + err.file.name;
+				}
+			},
+			'Key': function (up, file) {
+				// 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+				// 该配置必须要在 unique_names: false , save_key: false 时才生效
+				//key就是上传的文件路径
+				var key = "";
+				//获取年月日时分秒
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				key += 'upload/' + year + '-' + month + '-' + day + '/';
+				key += file.name;
+				return key;
+			}
+		}
+	});
+
+	$("#upload_file").click(function(){
+		if (uploader.files.length >0){
+			uploader.start();
+		}else{
+			$(".Upload-resume-status").text("请先选择文件");
+		}
+	})
+
+</script>
+</body>
+</html>

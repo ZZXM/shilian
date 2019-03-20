@@ -1,0 +1,9 @@
+ <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+  @media screen and (min-width: 320px) and (max-width: 750px){
+        body {
+            background-color: #6ff7d8;
+            font-size:14px; 
+        }
+       }

@@ -1,0 +1,10 @@
+obj  instanceof  object
+//obj最好是对象，如果是基础类型1？2？3返回flase
+//object是一个函数对象或者函数构造器
+//原理 判断左边原型链上是否有左边的prototype函数
+
+function a（）{ }
+
+function b()｛ }    
+
+ 

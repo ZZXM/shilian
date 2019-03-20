@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>
+        Document
+      </title>
+    </meta>
+  </head>
+  <body>
+    <span onclick="makeRequest('test.html')" style="cursor: pointer; text-decoration: underline">
+      Make a request
+    </span>
+    <script language="javascript" type="text/javascript">
+      function makeRequest(url) {
+        var httpRequest;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+            httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType) {
+                httpRequest.overrideMimeType('text/xml');
+            }
+        }
+        else if (window.ActiveXObject) { // IE
+            try {
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e) {}
+            }
+        }
+
+        if (!httpRequest) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+        httpRequest.open('GET', url, true);
+        httpRequest.send('');
+
+    }
+
+    function alertContents(httpRequest) {
+
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                alert(httpRequest.      function makeRequest(url) {
+        var httpRequest;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+            httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType) {
+                httpRequest.overrideMimeType('text/xml');
+            }
+        }
+        else if (window.ActiveXObject) { // IE
+            try {
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e) {}
+            }
+        }
+
+        if (!httpRequest) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+        httpRequest.open('GET', url, true);
+        httpRequest.send('');
+
+    }
+
+    function alertContents(httpRequest) {
+
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                alert(httpRequest.      function makeRequest(url) {
+        var httpRequest;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+            httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType) {
+                httpRequest.overrideMimeType('text/xml');
+            }
+        }
+        else if (window.ActiveXObject) { // IE
+            try {
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e) {}
+            }
+        }
+
+        if (!httpRequest) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+        httpRequest.open('GET', url, true);
+        httpRequest.send('');
+
+    }
+
+    function alertContents(httpRequest) {
+
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                alert(httpRequest.responseText);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    });
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    });
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="example-2">
+		输入你的名字名字：<input type="text" v-model="name">
+		<p>{{$data | json}}</p>
+		<p>{{name}}</p>
+	</div>
+
+	<script type="text/javascript">
+	var v=new Vue({
+		el:'#example-2',
+		data:{
+			name:'Appian'
+		}
+	});
+	</script>
+</body>
+</html>

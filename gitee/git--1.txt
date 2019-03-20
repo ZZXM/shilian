@@ -1,0 +1,141 @@
+版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。
+
+版本控制系统（VCS）
+本地版本控制系统(tcs)
+集中化的版本控制系统(CVCS)
+分布式版本控制系统(DVCS )
+
+git的优点
+速度
+简单的设计
+对非线性开发模式的强力支持（允许上千个并行开发的分支）
+完全分布式
+有能力高效管理类似 Linux 内核一样的超大规模项目（速度和数据量）
+
+Git 内都只有三种状态：已提交（committed），已修改（modified）和已暂存（staged）。
+
+
+默认无法发出命令 p4 edit file 开始编辑文件
+
+安装git
+
+yum安装顺序
+Git 的工作需要调用 curl，zlib，openssl，expat，libiconv 等库的代码，所以需要先安装这些依赖工具。
+$ yum install curl-devel expat-devel gettext-devel \
+    openssl-devel zlib-devel
+
+    $ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext \
+    libz-dev libssl-dev
+
+从下面的 Git 官方站点下载最新版本源代码：
+http://git-scm.com/download
+
+然后编译并安装：
+$ tar -zxf git-1.7.2.2.tar.gz
+    $ cd git-1.7.2.2
+    $ make prefix=/usr/local all
+    $ sudo make prefix=/usr/local install
+
+现在已经可以用 git 命令了，用 git 把 Git 项目仓库克隆到本地，以便日后随时更新：
+$ git clone git://git.kernel.org/pub/scm/git/git.git
+
+在 Windows 上安装：
+在 Windows 上安装 Git 同样轻松，有个叫做 msysGit 的项目提供了安装包，可以到 GitHub 的页面上下载 exe 安装文件并运行：
+http://msysgit.github.com/
+
+
+初次运行 Git 前的配置
+
+使用git config时
+使用--system  读写/etc/gitconfig
+使用--global  读写~/.gitconfig
+
+配置的是你个人的用户名称和电子邮件地址
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<link rel="stylesheet" href="hjs.css">
+	<script src="./vue.js"></script>
+	
+</head>
+<body>
+
+	<div  class="one" id="one" >
+		<div class="onea">
+		<input class="oneaone" type="text"  id="t1" value="">
+		<span>
+		<a href="javascript:void(0);"  class="oneatwo"  id="textlean">X</a>
+		</span>
+		</div>
+		<div class="oneb">
+		<textarea class="onebone" cols="398" autofocus  type="text" id="t2"></textarea> 
+		</div>
+		<div class="onec">
+			<ul class="onecone">
+				<li><a href=""  onclick="textarea()">取消</a></li>
+				<li><a href="" id="mySaveEl">保存</a></li>
+			</ul>
+		</div>
+	</div>
+	<button class="dw-btn btn-primary has-hover"  id="dianji" >点击</button>
+
+	<br/>
+	<br/>
+
+	<div class="two">
+		<div>
+			<input class="twoaone"  id="t3"  >
+		</div>
+		<textarea  class="twoatwo"  id="t4" ></textarea>
+	</div>
+	<script type="text/javascript">
+		// function input () {
+		// 	var t1=document.getElementById("t1");
+		// 	return bt1.value;
+		// }
+		// function output(){
+		// 	var t3=document.getElementById("t3");
+		// 	t3.value=input();
+		// }
+		function textlean(e){
+			document.getElementById("one").style.display="none";
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		document.getElementById('textlean').addEventListener('click', textlean, true)
+
+
+		function textarea(){
+			var textarea =document.getElementById("t2")
+			textarea.value="";
+		}
+		function textsave(e){
+			var t1 =document.getElementById("t1")
+			var t2 =document.getElementById("t2")
+			var t3 =document.getElementById("t3")
+			var t4 =document.getElementById("t4")
+			t3.value=t1.value;
+			t4.value=t2.value;
+
+			e.preventDefault();
+			e.stopPropagation();
+
+		}
+
+		document.getElementById('mySaveEl').addEventListener('click', textsave, true)
+
+		function dianji(e){
+			document.getElementById("one").style.display="inline";
+			e.preventDefault();
+			e.stopPropagation();	
+		}
+
+		document.getElementById('dianji').addEventListener('click', dianji, true)
+	</script>
+</body>
+</html>

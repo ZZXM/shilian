@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <!-- 如果你的网站不想被剥去外衣、往赤裸的身体上贴广告 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="//st.xxxx.com/render/jquery/jquery.min-2.2.0.js"></script>
+    <title>Array</title>
+    <script type="text/javascript">
+        (function () {
+            function w() {
+                var r = document.documentElement
+                var a = r.getBoundingClientRect().width
+                if (a > 750) {
+                    a = 750
+                }
+                // 750/w = 100/font-size
+                rem = a / 7.5
+                r.style.fontSize = rem + 'px'
+            };
+            var t
+            w()
+            window.addEventListener('resize', function () {
+                clearTimeout(t)
+                t = setTimeout(w, 300)
+            }, false)
+        })()
+    </script>
+</head>
+
+<body>
+    <script>
+       var arr1 =new Array();
+       var arr2= new Array(5);
+       
+       console.log(typeof(arr1))
+       console.log(arr2)
+       
+    </script>
+</body>
+
+</html>

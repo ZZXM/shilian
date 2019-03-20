@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>咨询</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="../../webapp/recet.css">
+    <!-- <link rel="stylesheet" href="css/PopupRegistration2.css"> -->
+    <style type="text/css">
+    p {
+        margin: 0;
+    }
+
+    .Popup-body {
+        position: fixed;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.6)
+    }
+
+    .dialog-registration {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        z-index: 13;
+        width: 92%;
+        top: 20%;
+        left: 4%;
+        text-align: center;
+        border-radius: 3px;
+    }
+
+    .PopupRegistration-imgeleven {
+        width: 82%;
+    }
+
+    .dialog {
+        background: url(img/12.png) no-repeat;
+        background-size: 100% 100%;
+        margin-top: -0.01rem;
+    }
+
+    .Popup-diglog {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .Popup-diglog .Popup-diglog-one {
+        font-size: 0.32rem;
+        font-weight: 600;
+        color: #631600;
+        text-align: justify;
+        margin: 0.35rem 0 0.12rem 0;
+        letter-spacing: 0.04rem;
+    }
+
+    .Popup-diglog .Popup-diglg-three {
+        font-size: 0.21rem;
+        color: #631600;
+        margin-top: 0.15rem;
+    }
+
+    .Popup-diglog-users {
+        display: inline-block;
+        height: 0.7rem;
+        text-overflow: clip;
+        font-size: 0.26rem;
+        overflow: hidden;
+        white-space: nowrap;
+        min-height: 0.8rem;
+        width: 82%;
+        border: none;
+        margin-top: 0.3rem;
+        border-radius: 5px;
+        padding: 0 15px;
+    }
+
+    .Popup-diglog-userspan {
+        position: absolute;
+        font-size: 0.55rem;
+        line-height: 1.3rem;
+        margin-left: -0.7rem;
+        color: #b2b2b2;
+    }
+
+    .Popup-diglog-tel {
+        position: absolute;
+        font-size: 0.55rem;
+        line-height: 1.3rem;
+        margin-left: -0.7rem;
+        color: #b2b2b2;
+    }
+
+    .Popup-diglog-btn {
+        background: #fd8d20;
+        display: block;
+        height: 0.7rem;
+        text-overflow: clip;
+        font-size: 0.26rem;
+        overflow: hidden;
+        white-space: nowrap;
+        min-height: 0.8rem;
+        width: 82%;
+        border: none;
+        margin-top: 0.3rem;
+        margin-bottom: 0.45rem;
+        border-radius: 5px;
+        padding: 0 15px;
+    }
+
+    .toast {
+        left: 46%;
+        top: 45%;
+        margin-left: -3.8em;
+        position: fixed;
+        z-index: 15;
+        width: 3rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        font-size: 0.3rem;
+        margin-left: -3.8em;
+        background: rgba(40, 40, 40, 0.75);
+        text-align: center;
+        border-radius: 5px;
+        color: #FFFFFF;
+    }
+
+    .toast p {
+        font-size: 0.26rem;
+        line-height: 0.8rem;
+        color: #FFF;
+    }
+
+    .toast1 {
+        left: 30.5%;
+        top: 32%;
+        margin-left: -3.8em;
+        position: fixed;
+        z-index: 16;
+        width: 5.2rem;
+        height: 3.2rem;
+        line-height: 0.8rem;
+        font-size: 0.3rem;
+        margin-left: -3.8em;
+        background: rgba(40, 40, 40, 0.75);
+        text-align: center;
+        border-radius: 5px;
+        color: #FFFFFF;
+    }
+
+    .dig-toast1-one {
+        margin-top: 0.5rem;
+    }
+
+    .dig-toast1-two {
+        margin-top: -0.2rem;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    .dig-toast1-three {
+        color: #fff;
+    }
+
+    .Popup-diglog-imgsixteen {
+        position: absolute;
+        margin-top: -2.28rem;
+        width: 40%;
+    }
+
+    .Popup-diglog-psixteen {
+        position: absolute;
+        margin-top: -1.9rem;
+        margin-left: 1rem;
+    }
+
+    .Popup-diglog-psixteen p {
+        font-size: 0.33rem;
+        color: #fff;
+    }
+
+    .dialogAUditiontwo {
+        width: 100%;
+        position: relative;
+    }
+
+    .dialogAUditionthree {
+        width: 100%;
+        font-size: 0;
+    }
+    </style>
+    <script type="text/javascript">
+    ! function() {
+        var htmlEl = document.getElementsByTagName('html')[0];
+        var fitPage = function() {
+            /* The calculate of with from zepto  */
+            var w = htmlEl.getBoundingClientRect().width;
+            w = Math.round(w);
+            w = w > 750 ? 750 : w;
+            var newW = w / 750 * 100;
+            htmlEl.style.fontSize = newW + 'px';
+        }
+        fitPage();
+        var t;
+        var func = function() {
+            clearTimeout(t);
+            t = setTimeout(fitPage, 25);
+        }
+        window.addEventListener('resize', func);
+    }();
+    </script>
+</head>
+
+<body>
+    <div class="PopupRegistration-body" id="dialog-registration">
+        <div class="Popup-body">
+        </div>
+        <div class="dialog-registration">
+            <div class="dialog">
+                <div class="Popup-diglog">
+                    <div class="dialogAUditiontwo">
+                        <img src="img/15.png" alt="" style="width:100%;">
+                        <div class="Popup-diglog-psixteen">
+                            <p>我们将有</p>
+                            <p>专属课程顾问</p>
+                            <p>联系您</p>
+                        </div>
+                        <img src="img/16.png" alt="" class="Popup-diglog-imgsixteen">
+                    </div>
+                    <div class="dialogAUditionthree">
+                        <input type="text" name="username" id="name" value="" class="Popup-diglog-users" required="required" maxlength=40 placeholder="姓名">
+                        <span class="Popup-diglog-userspan" onclick='pusername()'>×</span>
+                    </div>
+                    <div class="dialogAUditionthree">
+                        <input type="tel" id="phone" class="Popup-diglog-users" required="required" pattern="[0-9]*" maxlength="11" placeholder="手机号">
+                        <span class="Popup-diglog-tel" onclick='ptel()'>×</span>
+                    </div>
+                    <button type="" class="Popup-diglog-btn" id="btn" onclick='onblurphone()'>为了孩子，预约！</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast" style="display:none;">
+        <div class="toast">
+            <p class="weui_toast_content">姓名和手机号不能为空</p>
+        </div>
+    </div>
+    <div id="toast1" style="display:none;">
+        <div class="toast">
+            <p class="weui_toast_content">手机格式不正确</p>
+        </div>
+    </div>
+    <div id="toast2" style="display:none;">
+        <div class="toast1">
+            <img src="img/14.png" alt="" class="dig-toast1-one">
+            <p class="dig-toast1-two">提交成功</p>
+            <p class="dig-toast1-three">您的专属课程顾问将尽快与您联系！</p>
+        </div>
+    </div>
+    <!-- <script src="css/jquery.js"></script> -->
+    <script>
+    var isIOS = /Mac\s+OS/i.test(navigator.userAgent) || /Mac/i.test(navigator.platform);
+
+    function onblurphone() {
+        var studentName = document.getElementById('name').value;
+        var firstPhone = document.getElementById('phone').value;
+        // 全局变量a和b，分别获取用户框和手机框
+
+        var toast = document.getElementById("toast");
+        var toast1 = document.getElementById("toast1");
+        var toast2 = document.getElementById("toast2");
+        if (!studentName || !firstPhone) {
+            toast.style.display = "";
+            setTimeout(function() {
+                toast.style.display = "none"
+            }, 1000)
+        } else if (!/^1(3|4|5|7|8)\d{9}$/i.test(firstPhone)) {
+            toast1.style.display = "";
+            setTimeout(function() {
+                toast1.style.display = "none"
+            }, 1000)
+        } else {
+            toast2.style.display = "";
+            setTimeout(function() {
+                toast2.style.display = "none"
+            }, 2000)
+        }
+
+        $.ajax({
+            url: 'http://i.xxxx.com/landingForm/register',
+            type: 'GET',
+            data: {
+                studentName: studentName || '',
+                firstPhone: firstPhone || '',
+                adidNo: isIOS ? '52dd08130ba429d8' : '29ed0c9bfebe6a53', //adidNo：android为：29ed0c9bfebe6a53 ISO为：52dd08130ba429d8 
+                formId: '16'
+            },
+            success: function(data) {
+                if (data && data.message) {
+                    alert(data.message)
+                } else {
+                    //alert('预约成功！海风老师会尽快联系您，请留意手机来电')
+                    $('#theModal').show();
+                }
+            }
+        })
+    }
+
+    var a = document.getElementById("name");
+    var b = document.getElementById("phone");
+
+
+    function pusername() {
+        a.value = ""
+    }
+
+    function ptel() {
+        b.value = ""
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>交替显示</title>
+	<script type="text/javascript" src="../../wu/jQuery.js"></script>
+</head>
+<style type="text/css">
+	.dom1 {
+		width: 200px;
+		height: 200px;
+		background-color: #666666;
+	}
+	.dom2 {
+		width: 200px;
+		height: 200px;
+		background-color: #f3f3f3;
+	}
+</style>
+<body>
+	<div id="d1" class="dom1" style="display: none;">d1</div>
+	<div id="d2" class="dom2">d1</div>
+	<script type="text/javascript">
+		$(function(){             
+                function changeDiv(){
+                	// console.log($('#d1').css('display'))
+                    if($('#d1').css('display')=='none'){
+                        $("#d1").show();
+                        $("#d2").hide();
+                    }else{
+                        $("#d1").hide();
+                        $("#d2").show();
+                    }
+                }
+                //利用setInterval，设置每隔10秒执行changeDiv函数。
+                setInterval(changeDiv,1000)
+            });
+	</script>
+</body>
+</html>
+

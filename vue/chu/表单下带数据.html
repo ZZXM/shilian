@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div class="popselect popselectm popup popup-inline" v-class="'open': !!open" v-attr="data-fn-clickout:''" v-el="self"
+	v-on="keyup:keyup, keydown: keydown"
+	>
+	<input type="text" class="pop-edit input font-sm"
+		v-attr="disabled:disabled ? 'disabled': null"
+		v-on="click:toggleOpen"
+		>
+	<div class="popup-item input font-sm"
+		v-attr="disabled:disabled ? 'disabled': null"
+		>
+		<div class="popup-text">
+			<span v-html="selectText | plainHtmlFilter"></span>
+			<span class="popup-label" v-show="multiValue.length">{{multiValue.length}}</span>
+		</div>
+	</div>
+	<div class="pop-box">
+		<ul class="list" v-el="list" v-show="dropDatas.length">
+			<li v-repeat="data in dropDatas" 
+				v-on="click:selectValue(data)" 
+				data-id="{{$index}}" 
+				v-class="selected: isSelect(data)"
+				>
+				<span v-html="data.text | plainHtmlFilter" class="list-text"></span>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+	<script type="text/javascript">
+def([
+	'./popselectm.html',
+	'js/utils.js',
+	'./popup.js',
+	'js/jquery.clickout.js',
+], function (tpl, _) {
+	return Vue.component('popselectm', {
+		props:['multiValue', 'datas', 'place', 'disabled', 'plainHtml', 'selectAll', 'allData', 'maxCount'],
+	    template: tpl,
+	    replace: true,
+	    data: function () {
+	    	return {
+	    		text:'',		//文本
+	    		place: jet.tr('text.please_select'),		//placeHolder
+	    		datas:[],		//可选项
+	    		select: null,	//选择项
+	    		disabled: false,//是否禁用
+
+	    		plainHtml: false, //是否为html
+	    		maxCount: 0, 	//最大选择个数
+
+	    		open: false,
+
+	    		selectAll: false,
+	    		allData: {
+	    			value:'',
+	    			text: jet.tr('text.all'),
+	    		},
+	    		dropDatas:[],
+	    		multiValue:[],
+	    	};
+	    },
+	    computed:{
+	    	selectText: function () {
+	    		var first = this.multiValue.length && this.multiValue[0];
+	    		if (first) {
+	    			first =  this.dropDatas.filter(function (it) {
+	    				if (it.value == first) {
+	    					return it;
+	    				}
+	    			});
+	    			if (first.length) {
+	    				return first[0].text;
+	    			}
+	    		}
+	    		return this.selectAll ? this.allData.text : this.place;
+	    	}
+	    },
+	    watch: {
+	    	'selectAll': 'updateDropDatas',
+	    	'datas': 'updateDropDatas',
+	    	'multiValue': 'updateMultiValue',
+	    },
+	    methods: {
+	    	updateDropDatas: function () {
+	    		var dist = this.datas && this.datas.slice(0) || [];
+	    		if (this.selectAll) {
+	    			dist.unshift(this.allData);
+	    		}
+	    		this.dropDatas = dist.map(function (it) {
+	    			it.value = _.toString(it.value);
+	    			if (this.multiValue.indexOf(it.value) !== -1) {
+	    				it.$set('select', true);
+	    			} else {
+	    				it.$set('select', false);
+	    			}
+	    			return it;
+	    		}, this);
+	    	},
+	    	toggleOpen: function ($event) {
+	    		$event.preventDefault();
+	    		this.open = !this.open;	
+	    	},
+	    	updateMultiValue: function () { // 值变化
+	    		this.multiValue.forEach(function (it, id) {
+	    			this.multiValue[id] = _.toString(it);
+	    		}, this);
+	    		this.updateByValue();
+	    	},
+	    	updateByValue: function () { // 值变化
+	    		if (!this.dropDatas) {
+	    			return ;
+	    		}
+	    		this.dropDatas.map(function (it) {
+	    			if (this.multiValue.indexOf(it.value) !== -1) {
+	    				it.select = true;
+	    			} else {
+	    				it.select = false;
+	    			}
+	    		}, this);
+	    	},
+	    	selectValue: function (it) {
+	    		if (this.selectAll) {
+	    			if (it.value == this.allData.value) {
+						this.dropDatas.map(function (it) {
+			    			it.select = false;
+			    		}, this);
+	    				this.multiValue.splice(0);
+	    				this.open = false;
+	    				return ;
+	    			}
+	    		}
+	    		var select = !it.select;
+	    		if (select) {
+	    			if (this.maxCount && (this.maxCount == this.multiValue.length)) {
+	    				return ;
+	    			}
+		    		if (this.multiValue.indexOf(it.value) == -1) {
+		    			this.multiValue.push(it.value);
+		    		}
+		    		it.select = true;
+	    		} else {
+	    			var pos = this.multiValue.indexOf(it.value);
+	    			if (pos !== -1) {
+	    				this.multiValue.splice(pos, 1);
+	    			}
+		    		it.select = false;
+	    		}
+	    	},
+	    	keyup: function ($event) { //@NOTE 直接操作DOM还是放到datas里面处理哪个更合适
+	    		var which = $event.which;
+	    		var $list = $(this.$$.list),
+	    			$active = $(this.$$.list).find('>.active'),
+	    			$next;
+	    		if (which == 13) { // Enter
+	    			if ($active.length) { // 找到第一个并选择它
+	    				this.selectValue(this.dropDatas[$active.attr('data-id')]);
+	    			}
+	    		} else {
+	    			if (which !== 27 && !$event.ctrlKey && which !== 16) { // 非 esc ctrl shift
+	    				this.open = true; // 任意键开启
+	    			}
+	    			if (which == 38) { // Up
+		    			$next = $active.length && $active.prev().length ? $active.prev() : $list.find(':last-child');
+		    			$active.removeClass('active');
+		    			$next.addClass('active');
+		    		} else if (which == 40) { // Down
+		    			$next = $active.length && $active.next().length ? $active.next() : $list.find(':first-child');
+		    			$active.removeClass('active');
+		    			$next.addClass('active');
+		    		}
+	    		}
+	    	},
+	    	keydown: function ($event) {
+	    		var which = $event.which;
+	    		if ( which ===9 || which === 27) { // tab esc 键按下触发，失去焦点
+	    			this.open = false;
+	    		}
+	    		// console.log($event);
+	    	},
+	    	isSelect:function (data) {
+	    		return data.select;
+	    	}
+	    },
+	    filters:{
+	    	plainHtmlFilter: function (text) {
+	    		return this.plainHtml ? Vue.util.toString(text) : _.htmlEscape(Vue.util.toString(text));
+	    	}
+	    },
+	    compiled: function () {
+//@DEBUG
+	    	window.vmpopselectm =  this;
+//!DEBUG
+			this.updateMultiValue();
+			this.updateDropDatas();
+	    	$(this.$$.self).clickout(function () {
+	    		this.open = false;
+	    	}.bind(this));
+	    }
+	});
+
+});
+	</script>
+</body>
+</html>

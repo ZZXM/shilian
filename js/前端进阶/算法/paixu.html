@@ -1,0 +1,48 @@
+<html>
+
+<script>
+    (function () {
+        var arr = [41, 22, 233, 14, 5, 26, 7, 38, 9, 10]
+        var li = [];
+        var teap = [];
+        var a = ["a", "b", "c", "d"];
+        var obj = {a:1,b:2,c:3,i:4};
+        // var a = ["a", "b", "c"];
+        // 求出所有能排列的所有组合
+        for (const i in a) {
+            for (const j in a) {
+                for (const z in a) {
+                    li.push(a[i] + a[j] + a[z])
+
+                    console.log(li.sort())
+                    for (const x in a) {
+                        // li.push(a[i] + a[j] + a[z] + a[x])
+                    }
+                }
+            }
+        }
+
+        // 去重
+        function DeWeight(arr) {
+            for (let index = 0; index < li.length; index++) {
+                if (teap.indexOf(li[index]) == -1) {
+                    // 判定组合aabb和bbaa相同
+                    if (teap.indexOf(reverses(li[index])) == -1) {
+                        teap.push(li[index]);
+                    }
+                }
+                console.log(teap)
+            }
+        }
+        // 颠倒元素
+        function reverses(e) {
+            return e.split("").reverse().join("");
+        }
+
+
+
+    })()
+</script>
+
+
+</html>

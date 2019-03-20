@@ -1,0 +1,33 @@
+<div class="default-layout contractdata-list">
+    <div class="section-group">
+        <ul class="nav nav-tabs">
+            <li><a href="{{'/contractdata/activitylist' | url}}">{{'ActivityList.activitylist' | tr}}</a></li>
+            <li><a href="{{'/contractdata/giftlist' | url}}">{{'ActivityList.gift' | tr}}</a></li>
+            <li><a href="{{'/contractdata/quotelist' | url}}">{{'ActivityList.quote' | tr}}</a></li>
+            <li><a href="{{'/contractdata/giftlistcopy' | url}}">哇哈哈</a></li>
+            <li class="active"><a href="{{'/contractdata/giftlistcopy1' | url}}">哇哈</a></li>
+        </ul>
+    </div>
+    <!--<div class="section-group">
+        <label class="label-text">{{'giftlistcopy1.status' | tr}}：</label>  
+        <popselect datas="{{@options.}}" value="{{@query.status}}" select-all=""></popselect>
+    </div>-->
+    <div class="form-group">
+        <a class="btn btn-default btn-def" href="{{ '/contractdata/create/2?'| url }}">{{'Giftlistcopy1.newgift'| tr}}</a>
+    </div>
+    <simpletable rows="{{@rows}}" cols="{{@cols}}" columns="{{@columns}}" flags="{{@flags}}" sort-key="true" partials="{{@partials}}" module="{{module}}" class="table-offset table-tiny table-body"></simpletable>
+    <define-partial name="gift-del-action">
+        <a v-on="click:dispatch('delGift', entry)">{{'Giftlistcopy1.delete' |tr}}</a>
+    </define-partial>
+    <!--<div class="paging-row page-foot">
+        <paging query="{{@query}}" url="{{@url}}" paging="{{@paging}}" show-data-count="true" rang-step="5"></paging>
+    </div>-->
+    <div class="form-group ">
+        <label class="label-text">{{'Giftlistcopy1.status' | tr}}：</label>
+        <popselect datas="{{@options.status}}" value="{{@query.status}}" select-all=""></popselect>
+    </div>
+    <div class="form-group ">
+        <label class="label-text">{{'Giftlistcopy1.quartersType' | tr}}:</label>
+        <popselectm datas="{{options.instructionTypes}}" multi-value="{{@query.instructionType}}" multiple="true" select-all="true" all-value=""></popselectm>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="example-2">
+		输入1~10内的数字：<input type="text" v-model='value'>
+		<p>计算结果:{{rusultmsg}}</p>
+	</div>
+
+	<script type="text/javascript">
+	var a=new Vue({
+		el:'#example-2',
+		data:{
+			value:null,
+			random:5
+		},
+		medthods:{
+			getRandom:function(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		},
+		computed:{
+			resultmsg:function(){
+				if(this.value==this.randNum){
+					this.random==this.getRandom(1,10);
+					return '你猜对了！';
+				}else{
+					this.random=this.getRandom(1,10);
+					return "猜错了，再来！";
+				}
+			}
+		}
+	})
+	</script>
+</body>
+</html>

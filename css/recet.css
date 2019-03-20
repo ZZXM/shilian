@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    border:0;
+} 
+ *,
+ *:before,
+ *:after {
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+ }
+ address,
+ cite,
+ dfn,
+ var {
+     font-style: normal;
+ }
+ /* 重置列表元素 */
+ ul,
+ ol {
+     list-style: none;
+ }
+ 
+a {
+  color: #000;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* for ie6 */
+
+fieldset,
+img,
+button {
+    border: none;
+}
+
+ body {
+  font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans","wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 0.24rem;
+  /* =16px */
+  font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+}

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>相隔两千里，温暖在一起</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="Author" contect="xiao">
+    <link rel="stylesheet" href="{$cdn_url}/css/reset.css" />
+    <link rel="stylesheet" href="{$cdn_url}/css/Participate.css" />
+    <script type="text/javascript" src="{$cdn_url}/js/jquery.js"></script>
+    <script type="text/javascript">
+        (function () {
+            function w() {
+                var r = document.documentElement
+                var a = r.getBoundingClientRect().width
+                if (a > 750) {
+                    a = 750
+                }
+                // 750/w = 100/font-size
+                rem = a / 7.5
+                r.style.fontSize = rem + 'px'
+            };
+            var t
+            w()
+            window.addEventListener('resize', function () {
+                clearTimeout(t)
+                t = setTimeout(w, 300)
+            }, false)
+        })()
+    </script>
+</head>
+
+<body>
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+        eruda.init();
+    </script>
+    <div class="content">
+        <div class="Participate-content container-size">
+            <div>
+                <img src="{$cdn_url}/img/donation6.png" alt="">
+            </div>
+            <div class="Participate-text1">
+                <p>参与方式</p>
+                <p>相隔两千里，温暖在一起</p>
+            </div>
+            <div class="Participate-text2">
+                <img src="{$cdn_url}/img/donation7.png" alt="">
+            </div>
+            <div class="Participate-text3">
+                <img src="{$cdn_url}/img/donation8.png" alt="">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-dialog" style="display:none;">
+        <div class="popover-frosting"></div>
+        <div class="popover-up4">
+        </div>
+    </div>
+
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+         $(function () {
+            //改变div的高度
+            $(".share-content-img").height($(window).height());
+            console.log($(window).height());
+            //改变div的宽度
+            $(".share-content-img").width($(window).width());
+        });
+        var has_phone = '{$has_phone}';
+        $('.Participate03').click(function () {
+            $('.content-dialog').show();
+        })
+        $('.content-dialog').click(function () {
+            $('.content-dialog').hide();
+        })
+        wx.config({
+            debug: false,
+            appId: '{$jssdk["appid"]}', //wxc0b5dfa06f872eee  wx199f202da1f10384
+            timestamp: '{$jssdk["time"]}',
+            nonceStr: '{$jssdk["nonce_str"]}',
+            signature: '{$jssdk["signature"]}',
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                'onMenuShareTimeline', 'onMenuShareAppMessage', "hideMenuItems", "showMenuItems"
+            ]
+        });
+
+        wx.ready(function () {
+            wx.hideMenuItems({
+                menuList: ["menuItem:share:qq", "menuItem:share:QZone", "menuItem:openWithQQBrowser",
+                    "menuItem:openWithSafari", "menuItem:copyUrl"
+                ]
+            });
+            wx.showMenuItems({
+                menuList: ["menuItem:share:appMessage", "menuItem:share:timeline"] // 要显示的菜单项，所有menu项见附录3
+            });
+
+            //朋友圈
+            wx.onMenuShareTimeline({
+                title: "温暖助力，我是第{$user_num}棒接力者，下一棒，你接吗？", // 分享标题
+                desc: '2018和你“衣”起,暖冬捐衣活动', // 分享描述
+                link: '{$share_link}', // 分享链接
+                imgUrl: '{$share_img}', // 分享图标
+                success: function () {
+                    if (has_phone == '1') {
+                        location.href = "./thanks.html";
+                    } else {
+                        location.href = "./contactInfo.html";
+                    }
+                    $('.content-dialog').hide();
+                    //$.post('{:U("/addon/Raffle/Index/share")}',{},function(data){},'json');   
+                },
+                cancel: function () {}
+            });
+            //分享到朋友
+            wx.onMenuShareAppMessage({
+                title: "温暖助力，我是第{$user_num}棒接力者，下一棒，你接吗？", // 分享标题
+                desc: '2018和你“衣”起,暖冬捐衣活动', // 分享描述
+                link: '{$share_link}', // 分享链接
+                imgUrl: '{$share_img}', // 分享图标
+                success: function () {
+                    if (has_phone == '1') {
+                        location.href = "./thanks.html";
+                    } else {
+                        location.href = "./contactInfo.html";
+                    }
+                    $('.content-dialog').hide();
+                },
+                cancel: function () {}
+            });
+        });
+    </script>
+</body>
+
+</html>

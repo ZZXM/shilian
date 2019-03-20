@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点击事件</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="exple-2">
+		<button @click="greet">Greet</button>
+	</div>
+
+	<script type="text/javascript">
+	var exple2=new Vue({
+		el:'#exple-2',
+		data:{
+			name:'Vue.js'
+		},
+		methods:{
+			greet:function(){
+				alert('Hello'+this.name+'!')
+				alert(event.target.tagName)
+			}
+		}
+	})
+
+	// exple2.greet()
+
+	</script>
+</body>
+</html>

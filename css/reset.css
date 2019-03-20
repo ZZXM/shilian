@@ -1,0 +1,747 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+
+/************* Reset CSS *************/
+
+
+/* 清除内外边距 */
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements 结构元素 */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements 列表元素 */
+
+pre,
+
+/* text formatting elements 文本格式元素 */
+
+form,
+fieldset,
+iframe,
+lengend,
+label,
+button,
+input,
+textarea,
+
+/* form elements 表单元素 */
+
+th,
+td {
+    /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+}
+
+address,
+cite,
+dfn,
+var {
+    font-style: normal;
+}
+
+
+/* 将斜体扶正 */
+
+code,
+kbd,
+pre,
+samp,
+tt {
+    font-family: "Courier New", Courier, monospace;
+}
+
+
+/* 统一等宽字体 */
+
+small {
+    font-size: 12px;
+}
+
+
+/* 小于 12*@rem 的中文很难阅读，让 small 正常化 */
+
+
+/* 重置列表元素 */
+
+ul,
+ol {
+    list-style: none;
+}
+
+
+/* 重置文本格式元素 */
+
+a {
+    color: #000;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:hover {
+    /*text-decoration: underline;*/
+}
+
+
+/* 重置表单元素 */
+
+legend {
+    color: #000;
+}
+
+
+/* for ie6 */
+
+fieldset,
+img,
+button {
+    border: none;
+}
+
+
+/* 注：optgroup 无法扶正 */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+    /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+img,
+iframe,
+table,
+form {
+    vertical-align: top;
+}
+
+
+/* 重置表格元素 */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* 重置 hr */
+
+hr {
+    border: none;
+    height: 1px;
+}
+
+
+/************* Reset CSS *************/
+
+html {
+    -ms-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    /*     font-size: 62.5%;
+*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    font-size: 0.24rem;
+    /* =16px */
+    font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+}
+
+.clearfix {
+    zoom: 1;
+    clear: both;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+.mr-left-20 {
+    margin-left: 0.2rem;
+}
+
+.mr-right-20 {
+    margin-right: 0.2rem;
+}
+
+.mr-top-10 {
+    margin-top: 0.1rem;
+}
+
+.mr-top-20 {
+    margin-top: 0.2rem;
+}
+
+.mr-top-60 {
+    margin-top: 0.6rem;
+}
+
+.mr-top-70 {
+    margin-top: 0.7rem;
+}
+
+.mr-top-100 {
+    margin-top: 1rem;
+}
+
+.mr-top-30 {
+    margin-top: 0.3rem;
+}
+
+.mr-bottom-20 {
+    margin-bottom: 0.2rem;
+}
+
+.mr-bottom-40 {
+    margin-bottom: 0.4rem;
+}
+
+.mr-top-40 {
+    margin-top: 0.4rem;
+}
+
+.mr-20 {
+    margin: 0.2rem 0;
+}
+
+.mr-30 {
+    margin: 0.3rem 0;
+}
+
+.mr-40 {
+    margin: 0.4rem 0;
+}
+
+.mr-60 {
+    margin: 0.4rem 0;
+}
+
+.pr-top-60 {
+    padding-top: 0.6rem;
+}
+
+.pr-top-70 {
+    padding-top: 0.7rem;
+}
+
+.pr-bottom-60 {
+    padding-bottom: 0.6rem;
+}
+
+.pr-70 {
+    padding: 0.7rem;
+}
+
+.pr-40 {
+    padding: 0.4rem;
+}
+
+.pr-bottom-40 {
+    padding-bottom: 0.4rem;
+}
+
+.content {
+    position: relative;
+    max-width: 7.5rem;
+    margin: 0 auto;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+.color-bg {
+    background: #efefef;
+}
+
+.color-bg1 {
+    background: #f0eff2;
+}
+
+.color-bg2 {
+    background: #f9eee5;
+}
+
+.color-bg3 {
+    background: #e8e9ec;
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('//at.alicdn.com/t/font_1476259808_9954677.eot');
+    /* IE9*/
+    src: url('//at.alicdn.com/t/font_1476259808_9954677.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/font_1476259808_9954677.woff') format('woff'), /* chrome、firefox */
+    url('//at.alicdn.com/t/font_1476259808_9954677.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/font_1476259808_9954677.svg#iconfont') format('svg');
+    /* iOS 4.1- */
+}
+
+.iconfont {
+    font-family: "iconfont";
+    font-size: 16px;
+    font-style: normal;
+}
+
+
+/*头部开始*/
+
+.header-fixed {
+    position: fixed;
+    top: 0rem;
+    left: 0rem;
+    z-index: 999;
+}
+
+.u-header {
+    width: 100%;
+    color: #000;
+    /*  height:1rem;
+*/
+    text-align: center;
+    background: #fff;
+    border-bottom: 1px #dbd6d6 solid;
+}
+
+.u-hd-left a,
+.u-hd-right a {
+    display: block;
+}
+
+.icon-back1 {
+    display: inline-block;
+    width: 1.5rem;
+    height: 0.4rem;
+    background-size: 2.97rem;
+    margin: 0.3rem 0.4rem 0.2rem 0.2rem;
+}
+.icon-back2 {
+    width: 0.47rem;
+    line-height: 0.47rem;
+    margin: 0.25rem 0.1rem 0.2rem 0rem;
+}
+.icon-back3 {
+    width: 2.1rem;
+    line-height: 0.47rem;
+    margin: 0.25rem 0rem 0.2rem 0rem;
+}
+
+.icon-btn {
+    display: inline-block;
+    width: 0.35rem;
+    height: 0.35rem;
+    background: url(../images/navbtn.png) no-repeat;
+    background-size: 0.35rem;
+}
+
+.icon-open {
+    display: inline-block;
+    width: 0.35rem;
+    height: 0.35rem;
+    background: url(../images/icon-open.png) no-repeat;
+    background-size: 0.35rem;
+}
+
+.u-header .nav {
+    width: 100%;
+    clear: both;
+    background: #fff;
+    opacity: 0.98;
+    top: 0.7rem;
+    left: 0;
+    position: absolute;
+    z-index: 9999;
+}
+
+.u-header ul {
+    z-index: 9999;
+    padding: 0;
+    margin-top: 0.3rem;
+}
+
+.u-header .nav li {
+    padding: 0.2rem 0rem;
+    text-align: left;
+}
+
+.u-header .nav .nav-list {
+    padding: 0 0.5rem;
+    display: block;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-size: 0.32rem;
+    color: #666;
+}
+
+.u-header .nav p {
+    display: none;
+    position: relative;
+    margin-top: 0.2rem;
+    background: #f1f3f3;
+    padding: 0.2rem 0.5rem;
+    padding-bottom: 0;
+}
+
+.Rack_user_lead {
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid rgba(241, 243, 243, 0.9);
+    border-left: 12px solid transparent;
+    position: absolute;
+    top: -10px;
+    left: 0.55rem;
+}
+
+.u-header .nav p>a {
+    display: inline-block;
+    font-size: 0.28rem;
+    color: #00a0e9;
+    /*  line-height:40px;
+*/
+    margin: 0 0.3rem;
+    margin-bottom: 0.2rem;
+    cursor: pointer;
+}
+
+.u-header .nav .nav-list .iconfont {
+    display: inline-block;
+    float: left;
+    font-size: 0.18rem;
+    background: #00a0e9;
+    color: #fff;
+    width: 0.38rem;
+    border-radius: 50%;
+    height: 0.38rem;
+    margin-right: 0.2rem;
+    line-height: 0.38rem;
+    text-align: center;
+}
+
+
+/*底部连接*/
+
+.foot-warp {
+    padding: 0.4rem 0.2rem;
+    background: #e9eaec;
+    text-align: center;
+    /*margin-bottom:1rem;*/
+}
+
+.foot-warp h3 {
+    font-size: 0.4rem;
+    line-height: 0.48rem;
+    color: #333;
+    margin-bottom: 0.4rem;
+}
+
+.foot-form {
+    width: 100%;
+    margin-bottom: 0.3rem;
+}
+
+.foot-form .ui-form-item {
+    vertical-align: middle;
+    /*  padding-right: 10px;
+*/
+    position: relative;
+}
+
+.foot-form .input-wrap {
+    font-size: 0;
+    border-radius: 2px;
+    /* background: #fff;*/
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0.2rem;
+}
+
+.foot-form input {
+    width: 100%;
+    height: 0.88rem;
+    font-size: 0.24rem;
+    padding: 0 10px;
+    border: 1px solid #ededed;
+    outline: 0;
+    border-radius: 0.02rem;
+    background: #fff;
+    color: #999;
+}
+
+.foot-form select {
+    width: 48%;
+    height: 0.88rem;
+    font-size: 0.24rem;
+    padding: 0 10px;
+    border: 1px solid #ededed;
+    outline: 0;
+    border-radius: 0.02rem;
+    background: #fff;
+    color: #999;
+    margin-bottom: 0.2rem;
+}
+
+.ui-button {
+    display: inline-block;
+    width: 100%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    color: #fff;
+    border: 0;
+    border-radius: 2px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 0.3rem;
+    margin: 0.3rem 0 0.3rem;
+    transition: all ease .2s;
+    background: #00a0e9;
+    -webkit-transition: all ease .2s;
+}
+
+.foot-form .ui-form-explain {
+    display: none;
+    position: absolute;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding: 0 10px;
+    background-color: #007bce;
+    font-size: 0.16rem;
+    color: #fff;
+    border-radius: 2px;
+    left: 0;
+    top: -0.38rem;
+    z-index: 2;
+}
+
+.foot-form .ui-form-explain:after {
+    position: absolute;
+    border: 0 solid transparent;
+    border-width: 0.1rem 0.1rem 0;
+    border-top-color: #007bce;
+    content: "";
+    bottom: -0.04rem;
+    left: 0.1rem;
+}
+
+.foot-warp ul {
+    overflow: hidden;
+    /*  padding-bottom:0.3rem;*/
+}
+
+.foot-warp ul li {
+    float: left;
+    width: 20%;
+    line-height: 0.25rem;
+    line-height: 0.25rem;
+    padding-right: 0.03rem;
+    text-align: center;
+    border-right: 1px solid #ccc;
+}
+
+.foot-warp ul .oNborder {
+    border: 0;
+}
+
+.foot-warp ul li a {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.16rem;
+    color: #999;
+    text-align: center;
+}
+
+.foot-warp p {
+    font-size: 0.18rem;
+    line-height: 0.3rem;
+    text-align: center;
+    color: #999;
+}
+
+.foot-warp .key_footer a {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+
+.foot-warp .key_footer a img {
+    display: block;
+}
+
+
+/*footer开始*/
+
+.footer {
+    width: 100%;
+    height: 0.8rem;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    margin-top: 0.8rem;
+}
+
+.footer ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.footer ul li a {
+    display: inline-block;
+    width: 100%;
+    float: left;
+    cursor: pointer;
+    padding: 0.1rem 0;
+    color: #888888;
+    text-align: center;
+}
+
+.footer ul li .iconfont {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.32rem;
+    font-weight: bold;
+}
+
+.footer ul li span {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.16rem;
+}
+
+
+/*footer结束*/
+
+.popmask {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.listen-mian {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 3rem;
+    width: 5rem;
+    margin-left: -2.5rem;
+    box-sizing: border-box;
+    z-index: 1000;
+    background: #fff;
+    text-align: center;
+}
+
+.listen-mian p {
+    font-size: 0.3rem;
+    text-align: center;
+}
+
+.listen-mian .p4 {
+    border-bottom: 1px solid #ccc;
+    padding: 0.3rem 0;
+}
+
+.listen-mian a {
+    display: inline-block;
+    width: 50%;
+    font-size: 0.3rem;
+    font-weight: 100;
+    color: #666;
+    float: left;
+    height: 0.8rem;
+    cursor: pointer;
+    line-height: 0.8rem;
+}
+.listen-mian .span2 {
+    border-left: 1px solid #ccc;
+    color: #00a0e9;
+}

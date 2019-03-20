@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div class="popinput popup popup-inline" v-class="'open': !!open" v-attr="data-fn-clickout:''" v-el="self">
+		<input type="text" class="popup-item input font-sm"
+			placeHolder="{{@place}}"
+			v-model="text"
+			v-on="focus:updateFocus(true), blur:updateFocus(false), keyup:keyup, keydown: keydown"
+			v-attr="disabled:disabled ? 'disabled': null"
+			required><a href="javascript:void(0);" class="clear" v-on="click:text=value=''">X</a>
+		<div class="pop-box">
+			<ul class="list" v-el="list" v-show="!dropEmpty">
+				<li v-repeat="data in dropDatas | listFilter" v-on="click:selectValue(data, $event)" data-id="{{data.id}}">
+					<span v-html="data.text | plainHtmlFilter" class="list-text"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+			def([
+	'./popinput.html',
+	'js/utils.js',
+	'./popup.js',
+	'js/jquery.clickout.js',
+], function (tpl, _) {
+	return Vue.component('popinput', {
+		props:['value', 'text', 'datas', 'place', 'disabled', 'select', 'plainHtml'],
+	    template: tpl,
+	    replace: true,
+	    data: function () {
+	    	return {
+	    		value:'',		//值
+	    		text:'',		//文本
+	    		place: "",		//placeHolder
+	    		datas:[],		//可选项
+	    		select: null,	//选择项
+	    		disabled: false,//是否禁用
+
+	    		plainHtml: false, //是否为html
+
+	    		open: false,
+	    		dropDatas:[],
+	    		dropEmpty: true,
+	    	};
+	    },
+	    watch:{
+	    	'datas': 'updateByDatas',
+	    	'value': 'updateByValue',
+	    	'open' : 'updateByOpen',
+	    },
+	    methods: {
+	    	updateByOpen: function () {
+	    		if (!this.open) {
+	    			if (!this.select || this.select.text !== this.text) {
+	    				this.selectValue();
+	    			}
+	    		}
+	    	},
+	    	updateByDatas: function () { // 选项变化
+	    		this.dropDatas = (this.datas || []).map(function (it, index) {
+	    			return {
+	    				text: it.text,
+	    				value: it.value,
+	    				id: index,
+	    			};
+	    		});
+	    		if (!this.open) {
+	    			this.updateByValue();
+	    		}
+	    	},
+	    	updateByValue: function () { // 值变化
+	    		this.dropDatas.filter(function (it) {
+	    			if (_.toStringEqual(it.value, this.value)) {
+	    				this.selectValue(it);
+	    			}
+	    		}, this);
+	    	},
+	    	updateFocus: function (focus) {
+	    		if (focus) {
+	    			this.open = true;
+	    		}
+	    	},
+	    	selectValue: function (it, $event) {
+	    		if (it) {
+		    		if ($event) {
+		    			this.open = false;
+		    		}
+		    		this.select = it;
+		    		this.value = it.value;
+		    		this.text  = it.text;
+	    		} else {
+	    			this.select = null;
+	    			this.text = '';
+	    			this.value = '';
+	    		}
+	    	},
+	    	keyup: function ($event) { //@NOTE 直接操作DOM还是放到datas里面处理哪个更合适
+	    		var which = $event.which;
+	    		var $list = $(this.$$.list),
+	    			$active = $(this.$$.list).find('>.active'),
+	    			$next;
+	    		if (which == 13) { // Enter
+	    			if ($active.length) { // 找到第一个并选择它
+	    				this.selectValue(this.datas[$active.attr('data-id')], true);
+	    			}
+	    		} else {
+	    			if (which !== 27 && !$event.ctrlKey && which !== 16) { // 非 esc ctrl shift
+	    				this.open = true; // 任意键开启
+	    			}
+	    			if (which == 38) { // Up
+		    			$next = $active.length && $active.prev().length ? $active.prev() : $list.find(':last-child');
+		    			$active.removeClass('active');
+		    			$next.addClass('active');
+		    		} else if (which == 40) { // Down
+		    			$next = $active.length && $active.next().length ? $active.next() : $list.find(':first-child');
+		    			$active.removeClass('active');
+		    			$next.addClass('active');
+		    		}
+	    		}
+	    	},
+	    	keydown: function ($event) {
+	    		var which = $event.which;
+	    		if ( which ===9 || which === 27) { // tab esc 键按下触发，失去焦点
+	    			this.open = false;
+	    		}
+	    		// console.log($event);
+	    	}
+	    },
+	    filters: {
+	    	listFilter: function (lists) {
+
+    			if (!( this.open || this.text)) { //显示所有
+    				return lists;
+    			}
+    			// 匹配列表
+				var escapedCharacter = this.text.replace( /[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&" ),
+					regex = new RegExp(escapedCharacter, "i" );
+				var dist =  lists.filter(function (it) {
+	    			try {
+	    				//return regex.test(it.text);		//输入不必与内容一致  通过“学生编号”精确查询学员
+						return true;
+	    			} catch(e){
+	    				console.error(e);
+	    				return false;
+	    			}
+	    		});
+	    		this.dropEmpty = dist.length === 0;
+	    		return dist;
+	    	},
+	    	plainHtmlFilter: function (text) {
+	    		return this.plainHtml ? Vue.util.toString(text) : _.htmlEscape(Vue.util.toString(text));
+	    	}
+	    },
+	    compiled: function () {
+//@DEBUG
+	    	window.vmpopinut =  this;
+//!DEBUG
+	    	this.updateByDatas();
+	    	$(this.$$.self).clickout(function () {
+	    		this.open = false;
+	    	}.bind(this));
+	    }
+	});
+});
+	</script>
+</body>
+</html>

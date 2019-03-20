@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div class="popselect popup popup-inline" style="z-index:{{zIndex}}" v-class="'open': !!open" v-attr="data-fn-clickout:''" v-el="self"
+		v-on="keyup:keyup, keydown: keydown"
+		>
+		<input type="text" class="pop-edit input font-sm"
+			   v-attr="disabled:disabled ? 'disabled': null,readonly:readonly?'readonly':null"
+			v-on="click:toggleOpen"
+			v-model="text"
+			>
+		<div class="popup-item input font-sm"
+			v-attr="disabled:disabled ? 'disabled': null"
+			>
+			<span v-html="(text ? text : place) | plainHtmlFilter"></span>
+		</div>
+		<div class="pop-box">
+			<ul class="list" v-el="list" v-show="dropDatas.length">
+				<li v-repeat="data in dropDatas" v-on="click:selectValue(data, $event)" data-id="{{$index}}" v-class="active: data.value == value">
+					<span v-html="data.text | plainHtmlFilter" class="list-text"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+			def([
+	'./popselect.html',
+	'js/utils.js',
+	'./popup.js',
+	'js/jquery.clickout.js',
+], function (tpl, _) {
+    return Vue.component('popselect', {
+        props: ['value', 'text', 'datas', 'place', 'disabled', 'select', 'plainHtml', 'selectAll', 'allData', 'onchange', 'zIndex', 'caninput', 'readonly'],
+        template: tpl,
+        replace: true,
+        data: function () {
+            return {
+                value: '',		//值
+                text: '',		//文本
+                place: jet.tr('text.please_select'),		//placeHolder
+                datas: [],		//可选项
+                select: null,	//选择项
+                disabled: false,//是否禁用
+
+                plainHtml: false, //是否为html
+
+                open: false,
+
+                selectAll: false,
+                allData: {
+                    value: '',
+                    text: jet.tr('text.all'),
+                },
+                dropDatas: [],
+                onchange: null,
+                zIndex: "",
+                caninput: false,
+                readonly: true
+            };
+        },
+        watch: {
+            'value': 'updateByValue',
+            'selectAll': 'updateDropDatas',
+            'datas': 'updateDropDatas',
+            'text': 'changeValue',
+        },
+        methods: {
+            changeValue: function (newVal, oldVal) {
+                if (!this.caninput) {
+                    return;
+                }
+                if (newVal != oldVal) {
+                    this.value = this.text;
+                }
+            },
+            updateDropDatas: function () {
+                var dist = this.datas && this.datas.slice(0) || [];
+                if (this.selectAll) {
+                    dist.unshift(this.allData);
+                }
+                this.dropDatas = dist.map(function (it) {
+                    it.value = _.toString(it.value);
+                    return it;
+                });
+                this._hackValue = true; //选项更改时value可能不在选项列表，这个时候不能清空value
+                this.updateByValue();
+                this._hackValue = false;
+            },
+            toggleOpen: function ($event) {
+                $event.preventDefault();
+                this.open = !this.open;
+                if (this.caninput) {
+                    if (this.open) {
+                        $event.target.style.opacity = '100';
+                    } else {
+                        $event.target.style.opacity = '0';
+                    }
+                }
+
+
+            },
+            updateByValue: function (newValue, oldValue) { // 值变化
+                var nofound = true;
+                this.dropDatas.filter(function (it) {
+                    if (_.toStringEqual(it.value, this.value)) {
+                        nofound = false;
+                        this.selectValue(it);
+                        if (this.onchange !== null && newValue != oldValue) { this.onchange(it) }
+                    }
+                }, this);
+                if (this._hackValue) {
+                    return;
+                }
+                if (nofound) {
+                    this.selectValue();
+                    //if(this.onchange!==null){this.onchange()}
+                }
+            },
+            selectValue: function (it, $event) {
+                if (it) {
+                    if ($event) {
+                        this.open = false;
+                    }
+                    this.select = it;
+                    this.value = it.value;
+                    this.text = it.text;
+                } else if (!this.caninput) {
+                    this.select = null;
+                    this.value = this.selectAll && this.allData.value || '';
+                    this.text = '';
+                }
+            },
+            keyup: function ($event) { //@NOTE 直接操作DOM还是放到datas里面处理哪个更合适
+                var which = $event.which;
+                var $list = $(this.$$.list),
+	    			$active = $(this.$$.list).find('>.active'),
+	    			$next;
+                if (which == 13) { // Enter
+                    if ($active.length) { // 找到第一个并选择它
+                        this.selectValue(this.dropDatas[$active.attr('data-id')], true);
+                    }
+                } else {
+                    if (which !== 27 && !$event.ctrlKey && which !== 16) { // 非 esc ctrl shift
+                        this.open = true; // 任意键开启
+                    }
+                    if (which == 38) { // Up
+                        $next = $active.length && $active.prev().length ? $active.prev() : $list.find(':last-child');
+                        $active.removeClass('active');
+                        $next.addClass('active');
+                    } else if (which == 40) { // Down
+                        $next = $active.length && $active.next().length ? $active.next() : $list.find(':first-child');
+                        $active.removeClass('active');
+                        $next.addClass('active');
+                    }
+                }
+            },
+            keydown: function ($event) {
+                var which = $event.which;
+                if (which === 9 || which === 27) { // tab esc 键按下触发，失去焦点
+                    this.open = false;
+                }
+                // console.log($event);
+            }
+        },
+        filters: {
+            plainHtmlFilter: function (text) {
+                return this.plainHtml ? Vue.util.toString(text) : _.htmlEscape(Vue.util.toString(text));
+            }
+        },
+        compiled: function () {
+            //@DEBUG
+            window.vmpopselect = this;
+            //!DEBUG
+            this.updateDropDatas();
+            $(this.$$.self).clickout(function () {
+                this.open = false;
+            }.bind(this));
+        }
+    });
+
+});
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title></title> 
+<script type="text/javascript"> 
+// function s20(){ 
+// var data=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]; 
+// var result=""; 
+// for(var i=0;i<20;i++){ 
+// r=Math.floor(Math.random()*16);
+// result+=data[r]; 
+// } 
+// document.write(result); 
+// document.write("<br/>"); 
+// } 
+var userId = "";
+function mathuserId() {
+                var data = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+                
+                for (var i = 0; i < 10; i++) {
+                    r = Math.floor(Math.random() * 16);
+                    userId += data[r];
+                }
+            }
+            mathuserId();
+            // var userId=result;
+            document.write(userId)
+</script> 
+</head> 
+<body> 
+<!-- <input type="button" onclick="s20()" value="产生随机数">  -->
+</body> 
+</html
